@@ -1,0 +1,15 @@
+# Ignore macOS system files
+.DS_Store
+.AppleDouble
+
+# Ignore Windows system files
+Thumbs.db
+Desktop.ini
+
+# Ignore common code editor settings folders
+.vscode/
+.idea/
+
+# Ignore project dependencies and downloaded libraries
+node_modules/
+particles.js-master/
