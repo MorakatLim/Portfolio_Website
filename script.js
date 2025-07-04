@@ -54,6 +54,67 @@ document.addEventListener('DOMContentLoaded', () => {
     // === MODAL CONTENT & LOGIC =========================================
     // ===================================================================
 
+    /**
+     * Generates the HTML for the 7 steps of architectural design for a modal.
+     * @param {string} title - The main title for the modal content.
+     * @param {string} summary - A short summary of the project.
+     * @returns {string} - The complete HTML string for the modal content.
+     */
+    function generateArchitecturalStepsHTML(title, summary) {
+        const steps = [
+            "Schematic Design",
+            "Design Development",
+            "Construction Documents",
+            "Bidding and Negotiation",
+            "Construction Administration",
+            "Substantial Completion",
+            "Final Project Closeout"
+        ];
+
+        const descriptions = [
+            "This initial phase involves understanding the client's needs, goals, and budget. We conduct site analysis and develop preliminary sketches and concepts to establish the project's overall vision.",
+            "The schematic design is refined into a more detailed plan. This includes finalizing floor plans, elevations, and materials, and integrating structural, mechanical, and electrical systems.",
+            "This is the most detailed phase where all specifications for construction are documented. A comprehensive set of drawings and specs is created for contractors to use for bidding and building.",
+            "The completed construction documents are sent to contractors to get pricing. We assist in reviewing the bids, selecting the contractor, and finalizing the construction contract.",
+            "We act as the owner's representative during construction, conducting site visits, reviewing the contractor's work for compliance with the documents, and managing any issues that arise.",
+            "This milestone is reached when the building is essentially ready for move-in. We perform a final inspection, create a 'punch list' of remaining items for the contractor to fix, and certify completion.",
+            "All remaining items are completed, final payments are made, and all project documentation, warranties, and manuals are handed over to the owner, officially concluding the project."
+        ];
+
+        let modalHTML = `
+            <div class="modal-architecture-steps-content">
+                <h2>${title}</h2>
+                <p class="modal-architecture-summary">${summary}</p>
+                <button class="modal-steps-toggle-btn" aria-label="Toggle steps visibility" aria-expanded="false">
+                    <span class="toggle-text">Show Design Steps</span>
+                    <svg class="toggle-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="architectural-steps-container">
+        `;
+
+        steps.forEach((step, index) => {
+            modalHTML += `
+                <div class="architectural-step">
+                    <h3>Step ${index + 1}: ${step}</h3>
+                    <div class="step-content">
+                        <div class="step-image-placeholder">
+                            <span>Image Placeholder</span>
+                        </div>
+                        <div class="step-description">
+                            <p>${descriptions[index]}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        modalHTML += `
+                </div>
+            </div>
+        `;
+        return modalHTML;
+    }
+
     // Configuration for travel photo galleries. Maps a category name to a path and image count.
     const travelImageConfig = {
         'Cloudcroft': { path: "Projects/Travels/New_Mexico/Cloudcroft/images_webp/", count: 7 },
@@ -109,42 +170,53 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <div class="modal-engineering-content">
                     <p class="engineering-description">
-                        I have always enjoyed solving problems and designing solutions. This is one of the projects that taught me a lot as an engineer. 
-                        I was the software, firmware, network, and embedded systems engineer for this difficult project. 
-                        My team and I were assigned to design and produce a radar sensor from the ground up and provide it the functionality of measuring large and short distances. 
+                        I have always enjoyed solving problems and designing solutions. This is one of the projects that taught me a lot as an engineer.
+                        I was the software, firmware, network, and embedded systems engineer for this difficult project.
+                        My team and I were assigned to design and produce a radar sensor from the ground up and provide it the functionality of measuring large and short distances.
                         This project is part of a larger project used by the industry company to develop new technology for airport scanners!
                     </p>
                     <div class="engineering-projects-container">
                         <div class="engineering-project">
                             <div class="engineering-image-container">
-                                <img src="Projects/Engineering/Radar_Sensor/radar_sensor.jpg"  
-                                     data-full-src="Projects/Engineering/Radar_Sensor/radar_sensor.jpg" 
-                                     alt="Engineering Project 1" 
+                                <img src="Projects/Engineering/Radar_Sensor/radar_sensor.jpg"
+                                     data-full-src="Projects/Engineering/Radar_Sensor/radar_sensor.jpg"
+                                     alt="Engineering Project 1"
                                      class="modal-clickable-image">
                             </div>
                             <a href="#engineering" class="engineering-title-link">Low-Cost Radar Sensor</a>
                         </div>
                     </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <a href="#engineering" class="hero-cta">Go to Engineering Section</a>
+                    </div>
                 </div>`
+        },
+        engineeringProject1: {
+            html: `<h2>Placeholder Project One</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
+        },
+        engineeringProject2: {
+            html: `<h2>Placeholder Project Two</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
+        },
+        engineeringProject3: {
+            html: `<h2>Placeholder Project Three</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
         },
         architecture: {
             html: `
                 <div class="modal-architecture-content">
                     <div class="modal-featured-image-container">
-                        <img src="path/to/your/architecture_thumb.webp" 
-                             data-full-src="path/to/your/architecture_full.webp" 
+                        <img src="Projects/Architecture/arch_showcase_1.webp" 
+                             data-full-src="Projects/Architecture/arch_showcase_1.webp" 
                              alt="Featured architectural project" 
                              class="modal-featured-image">
                     </div>
                     <div class="architecture-project-details">
-                        <h3 class="architecture-project-title">Project Title TBD</h3>
-                        <p class="architecture-project-desc">Description TBD</p>
+                        <h3 class="architecture-project-title">My Approach to Design</h3>
                     </div>
                     <div class="architecture-philosophy">
                         <h4>Design Philosophy</h4>
                         <p>
                             My design philosophy centers on human-centric and sustainable design. 
-                            I believe that buildings should not only be aesthetically pleasing but also functional and environmentally responsible.
+                            I believe that buildings should not only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated with their surroundings.
                         </p>
                     </div>
                     <div class="skills-container">
@@ -176,7 +248,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </div>
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="#architecture" class="hero-cta">Explore My Projects</a>
+                    </div>
                 </div>`
+        },
+        dreamHome: {
+            html: generateArchitecturalStepsHTML(
+                "Dream Home Design Process",
+                "This project is a personal and ongoing exploration into creating a modern, sustainable living space. The design focuses on harmonizing with its natural surroundings, maximizing natural light, and integrating smart-home technology for a futuristic yet comfortable home."
+            )
+        },
+        currentHome: {
+            html: generateArchitecturalStepsHTML(
+                "Current Home Design Process",
+                "This conceptual exercise applies architectural principles to my current residence. The goal is to reimagine the space for better optimization, multi-functionality, and an enhanced quality of daily life, proving that good design can transform any environment."
+            )
+        },
+        firmDesign: {
+            html: generateArchitecturalStepsHTML(
+                "E.A.R. Firm Design Process",
+                "This is a conceptual design for the headquarters of an innovative Engineering, Architecture, and Real Estate (E.A.R.) firm. The building aims to reflect a spirit of collaboration, transparency, and forward-thinking by integrating all three disciplines under one roof."
+            )
         },
         realestate: {
             title: 'Real Estate Ventures',
@@ -239,8 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('project-modal');
     const modalContentArea = modal.querySelector('.modal-content-area');
     const closeModalBtn = modal.querySelector('.modal-close-btn');
-    const projectsGrid = document.querySelector('.projects-grid');
-    const photoContainer = document.querySelector('.about-photo-container');
 
     // --- Lightbox DOM Elements ---
     const lightboxOverlay = document.getElementById('lightbox-overlay');
@@ -267,9 +358,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (content.featuredImage) {
                 modalHTML += `
                     <div class="modal-featured-image-container">
-                        <img src="${content.featuredImage.thumb}" 
-                             data-full-src="${content.featuredImage.full}" 
-                             class="modal-featured-image" 
+                        <img src="${content.featuredImage.thumb}"
+                             data-full-src="${content.featuredImage.full}"
+                             class="modal-featured-image"
                              alt="${content.title}">
                     </div>`;
             }
@@ -305,17 +396,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modalContentArea.innerHTML = modalHTML;
-        body.classList.add('modal-open');
+        // Add the 'steps-collapsed' class by default to modals that have the toggle button
+        const modalWindow = modal.querySelector('.modal-window');
+        if (modalContentArea.querySelector('.modal-steps-toggle-btn')) {
+            modalWindow.classList.add('steps-collapsed');
+        }
 
-        // Add event listener for the expand button if it exists in the new content
+
+        // Add event listener for the expand button
         const expandBtn = modalContentArea.querySelector('.modal-expand-btn');
         if (expandBtn) {
             expandBtn.addEventListener('click', () => {
-                const modalWindow = expandBtn.closest('.modal-window');
-                const isExpanded = modalWindow.classList.toggle('expanded');
+                expandBtn.closest('.modal-window').classList.toggle('expanded');
+                const isExpanded = expandBtn.closest('.modal-window').classList.contains('expanded');
                 expandBtn.setAttribute('aria-expanded', isExpanded);
             });
         }
+
+        // Add event listener for the new steps toggle button
+        const stepsToggleBtn = modalContentArea.querySelector('.modal-steps-toggle-btn');
+        if (stepsToggleBtn) {
+            stepsToggleBtn.addEventListener('click', () => {
+                const modalWindow = stepsToggleBtn.closest('.modal-window');
+                const isCollapsed = modalWindow.classList.toggle('steps-collapsed');
+                stepsToggleBtn.setAttribute('aria-expanded', !isCollapsed);
+                const btnText = stepsToggleBtn.querySelector('.toggle-text');
+                btnText.textContent = isCollapsed ? 'Show Design Steps' : 'Hide Design Steps';
+            });
+        }
+
+        body.classList.add('modal-open');
     }
 
     /**
@@ -324,10 +434,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal() {
         body.classList.remove('modal-open');
         const modalWindow = modal.querySelector('.modal-window');
+        // Reset any specific states on close
         if (modalWindow.classList.contains('expanded')) {
             modalWindow.classList.remove('expanded');
-            const expandBtn = modalWindow.querySelector('.modal-expand-btn');
-            if (expandBtn) expandBtn.setAttribute('aria-expanded', 'false');
+        }
+        if (modalWindow.classList.contains('steps-collapsed')) {
+            modalWindow.classList.remove('steps-collapsed');
         }
     }
 
@@ -396,17 +508,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // === EVENT LISTENERS ===============================================
     // ===================================================================
 
-    // Listen for clicks on project boxes and the profile photo to open the modal
-    if (projectsGrid) {
-        projectsGrid.addEventListener('click', (e) => {
-            const projectBox = e.target.closest('.project-box');
-            if (projectBox && projectBox.dataset.modalKey) {
-                openModal(projectBox.dataset.modalKey);
+    // Delegated event listener for all modal triggers
+    const pageContent = document.getElementById('page-content');
+    if (pageContent) {
+        pageContent.addEventListener('click', (e) => {
+            const clickableItem = e.target.closest('[data-modal-key]');
+            if (clickableItem) {
+                const modalKey = clickableItem.dataset.modalKey;
+                openModal(modalKey);
             }
         });
-    }
-    if (photoContainer) {
-        photoContainer.addEventListener('click', () => openModal('profile'));
     }
 
     // Listeners for closing the modal
@@ -424,10 +535,23 @@ document.addEventListener('DOMContentLoaded', () => {
     lightboxPrevBtn.addEventListener('click', () => showImageAtIndex(currentImageIndex - 1));
     lightboxNextBtn.addEventListener('click', () => showImageAtIndex(currentImageIndex + 1));
 
-    // Special listener for links inside the modal that should close it
+    // Special listener for links inside the modal that should close it and scroll to a section
     modalContentArea.addEventListener('click', (e) => {
-        if (e.target.matches('.engineering-title-link')) {
-            closeModal();
+        // Check if the clicked element or its ancestor is a link to a page section
+        const sectionLink = e.target.closest('a[href^="#"]');
+
+        if (sectionLink) {
+            const href = sectionLink.getAttribute('href');
+            // Ensure the link is not just a placeholder and the target element exists on the page
+            if (href.length > 1 && document.querySelector(href)) {
+                e.preventDefault(); // Prevent the default anchor jump
+                closeModal(); // Close the modal
+
+                // Use a short timeout to allow the modal-close animation to start before scrolling
+                setTimeout(() => {
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }, 150);
+            }
         }
     });
 
@@ -655,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 glowSpriteMaterial.opacity = 0.9;
             }
         });
-        
+
         // Trigger resize on load to set the initial state
         window.dispatchEvent(new Event('resize'));
     }

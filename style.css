@@ -306,7 +306,8 @@ section:focus {
 
 #hero h1,
 #about h1,
-.hud-panel h1 {
+.hud-panel h1,
+.section-title {
     animation: float 6s ease-in-out infinite;
 }
 
@@ -442,7 +443,6 @@ section:focus {
 /* =================================================================== */
 
 /* --- Unified Panel Styles --- */
-.theme-engineering .hud-panel,
 .theme-real-estate .hud-panel,
 .theme-occupation .hud-panel,
 .theme-contact .hud-panel {
@@ -632,7 +632,7 @@ body.modal-open .modal-window {
 }
 
 .modal-content-area h2 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: var(--clr-cosmic-glow);
 }
 
@@ -880,149 +880,6 @@ body.modal-open .modal-window {
 }
 
 /* =================================================================== */
-/* === RESPONSIVE DESIGN ============================================= */
-/* =================================================================== */
-
-@media (max-width: 900px) {
-
-    /* --- Core Layout & Scrolling Fixes --- */
-    html {
-        /* This is the MOST IMPORTANT FIX. It disables the page-snapping effect on mobile, */
-        /* which allows you to scroll freely through sections that are taller than the screen. */
-        scroll-snap-type: none;
-    }
-
-    section {
-        /* Let the content inside each section determine its height. */
-        height: auto; 
-        /* Add more padding at the top to ensure content doesn't hide behind the nav bar. */
-        padding: 100px 20px 60px 20px; 
-        overflow-x: hidden; /* Prevent unwanted side-to-side scrolling */
-    }
-
-    /* --- Top Navigation --- */
-    #top-nav {
-        background: rgba(1, 4, 9, 0.7);
-        backdrop-filter: blur(5px);
-        padding: 5px 0;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .nav-list {
-        height: auto;
-    }
-
-    .nav-list li a {
-        font-size: 0.8rem;
-        line-height: 30px;
-        padding: 0 8px;
-    }
-
-    .nav-list li.nav-active a {
-        font-size: 0.85rem;
-    }
-
-    /* --- Hero Section (Homepage) --- */
-    #hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        min-height: 95vh; /* Use slightly less than 100vh to account for mobile browser bars */
-    }
-
-    .hero-content {
-        max-width: 95%;
-        order: 1; /* Keep text above the sphere */
-    }
-
-    .hero-content h1 {
-        /* This creates a fluid font size that scales with the screen width. */
-        /* Format: clamp(minimum_size, preferred_size, maximum_size) */
-        font-size: clamp(2.8rem, 12vw, 4rem);
-        line-height: 1.15; /* Adjust line height for large, multi-line text */
-    }
-
-    .hero-content .subtitle {
-        font-size: 1.2rem;
-    }
-
-    .hero-content .mission-statement {
-        font-size: 0.95rem; /* Make text slightly smaller for a better fit */
-    }
-    
-    .hero-socials {
-        justify-content: center;
-        margin-top: 1.5rem;
-    }
-
-    #sphere-container {
-        order: 2; /* Keep sphere below the text */
-        position: relative;
-        height: 35vh; /* Reduce sphere height to give text more room */
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    /* --- About Me Section --- */
-    .about-container {
-        grid-template-columns: 1fr; /* Fallback for the grid */
-        display: flex;
-        flex-direction: column; /* Ensure vertical stacking */
-        text-align: center;
-        gap: 20px;
-    }
-
-    .about-right {
-        text-align: center;
-    }
-
-    .about-photo-container {
-        margin: 0 auto 20px;
-        width: 200px; /* Give the photo a smaller, predictable size */
-        height: 200px;
-    }
-    
-    .about-right .about-bio {
-        font-size: 0.95rem;
-    }
-
-    /* Convert the project boxes to a simple vertical list on mobile */
-    .projects-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    /* --- General HUD Panels (Engineering, etc.) --- */
-    .hud-panel h1 {
-        font-size: 2.2rem;
-    }
-
-    .hud-panel p {
-        font-size: 1rem;
-    }
-
-    /* --- Modal Content --- */
-    .modal-window {
-        padding: 40px 20px;
-        width: 95%;
-    }
-    
-    .raytheon-projects-container,
-    .engineering-projects-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-
-    .raytheon-project,
-    .engineering-project {
-        width: 100%;
-    }
-}
-/* =================================================================== */
 /* === CUSTOM MODAL STYLES =========================================== */
 /* =================================================================== */
 
@@ -1129,7 +986,7 @@ body.modal-open .modal-window {
     text-shadow: 0 0 8px var(--clr-cosmic-glow);
 }
 
-/* --- Architecture Modal --- */
+/* --- Architecture Modal (OLD) --- */
 .architecture-project-details {
     text-align: center;
     margin-bottom: 30px;
@@ -1199,4 +1056,402 @@ body.modal-open .modal-window {
 .skill-item p {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
+}
+
+/* === ENGINEERING SECTION (Custom) ============================ */
+.engineering-main-container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.engineering-main-container .section-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 230, 230, 0.4);
+    color: #fff;
+}
+
+.engineering-main-container .section-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0 auto 3rem auto;
+    max-width: 800px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.engineering-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.engineering-project-card {
+    background: rgba(10, 25, 47, 0.3);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 230, 230, 0.25);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.engineering-project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px rgba(0, 230, 230, 0.5);
+    border-image: conic-gradient(from var(--angle), #010409, #00e6e6, #87cefa, #00e6e6, #010409) 1;
+    animation: border-spin 3s linear infinite;
+}
+
+.engineering-project-card h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--clr-engineering-glow);
+    text-shadow: 0 0 8px rgba(0, 230, 230, 0.5);
+}
+
+.engineering-project-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* === ARCHITECTURE SECTION (Custom) ============================ */
+.architecture-main-container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.architecture-main-container .section-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(135, 206, 250, 0.4);
+}
+
+.architecture-main-container .section-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0 auto 3rem auto;
+    max-width: 800px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.architecture-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.architecture-project-card {
+    background: rgba(10, 25, 47, 0.3);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(135, 206, 250, 0.25);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.architecture-project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px rgba(135, 206, 250, 0.5);
+    border-image: conic-gradient(from var(--angle), #010409, #00e6e6, #87cefa, #00e6e6, #010409) 1;
+    animation: border-spin 3s linear infinite;
+}
+
+.architecture-project-card h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--clr-cosmic-glow);
+    text-shadow: 0 0 8px rgba(135, 206, 250, 0.5);
+}
+
+.architecture-project-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* === ARCHITECTURE MODAL (7 Steps) ================================ */
+.modal-architecture-summary {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    max-width: 90%;
+    margin: 0 0 25px 0;
+    border-left: 3px solid var(--clr-cosmic-glow);
+    padding-left: 15px;
+}
+
+.modal-steps-toggle-btn {
+    background: rgba(135, 206, 250, 0.1);
+    border: 1px solid rgba(135, 206, 250, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.modal-steps-toggle-btn:hover {
+    background: rgba(135, 206, 250, 0.2);
+    border-color: rgba(135, 206, 250, 0.5);
+}
+
+.toggle-arrow {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: rotate(-90deg); /* Start collapsed */
+}
+
+.architectural-steps-container {
+    display: grid;
+    gap: 25px;
+    overflow: hidden;
+    transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1), margin-top 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-in-out;
+    grid-template-rows: 0fr; /* Start collapsed */
+    opacity: 0;
+    margin-top: 0;
+}
+
+.modal-window:not(.steps-collapsed) .architectural-steps-container {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+.modal-window:not(.steps-collapsed) .toggle-arrow {
+    transform: rotate(0deg);
+}
+
+.architectural-step {
+    min-height: 0;
+    /* Required for the grid animation to work correctly */
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--clr-cosmic-glow);
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.architectural-step h3 {
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    color: #fff;
+}
+
+.architectural-step .step-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.step-image-placeholder {
+    width: 150px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(135, 206, 250, 0.4);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.step-description p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* =================================================================== */
+/* === RESPONSIVE DESIGN ============================================= */
+/* =================================================================== */
+
+@media (max-width: 900px) {
+
+    /* --- Core Layout & Scrolling Fixes --- */
+    html {
+        /* This is the MOST IMPORTANT FIX. It disables the page-snapping effect on mobile, */
+        /* which allows you to scroll freely through sections that are taller than the screen. */
+        scroll-snap-type: none;
+    }
+
+    section {
+        /* Let the content inside each section determine its height. */
+        height: auto;
+        /* Add more padding at the top to ensure content doesn't hide behind the nav bar. */
+        padding: 100px 20px 60px 20px;
+        overflow-x: hidden;
+        /* Prevent unwanted side-to-side scrolling */
+    }
+
+    /* --- Top Navigation --- */
+    #top-nav {
+        background: rgba(1, 4, 9, 0.7);
+        backdrop-filter: blur(5px);
+        padding: 5px 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-list {
+        height: auto;
+    }
+
+    .nav-list li a {
+        font-size: 0.8rem;
+        line-height: 30px;
+        padding: 0 8px;
+    }
+
+    .nav-list li.nav-active a {
+        font-size: 0.85rem;
+    }
+
+    /* --- Hero Section (Homepage) --- */
+    #hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        min-height: 95vh;
+        /* Use slightly less than 100vh to account for mobile browser bars */
+    }
+
+    .hero-content {
+        max-width: 95%;
+        order: 1;
+        /* Keep text above the sphere */
+    }
+
+    .hero-content h1 {
+        /* This creates a fluid font size that scales with the screen width. */
+        /* Format: clamp(minimum_size, preferred_size, maximum_size) */
+        font-size: clamp(2.8rem, 12vw, 4rem);
+        line-height: 1.15;
+        /* Adjust line height for large, multi-line text */
+    }
+
+    .hero-content .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-content .mission-statement {
+        font-size: 0.95rem;
+        /* Make text slightly smaller for a better fit */
+    }
+
+    .hero-socials {
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    #sphere-container {
+        order: 2;
+        /* Keep sphere below the text */
+        position: relative;
+        height: 35vh;
+        /* Reduce sphere height to give text more room */
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* --- About Me Section --- */
+    .about-container {
+        grid-template-columns: 1fr;
+        /* Fallback for the grid */
+        display: flex;
+        flex-direction: column;
+        /* Ensure vertical stacking */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .about-right {
+        text-align: center;
+    }
+
+    .about-photo-container {
+        margin: 0 auto 20px;
+        width: 200px;
+        /* Give the photo a smaller, predictable size */
+        height: 200px;
+    }
+
+    .about-right .about-bio {
+        font-size: 0.95rem;
+    }
+
+    /* Convert the project boxes to a simple vertical list on mobile */
+    .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* --- General HUD Panels (Engineering, etc.) --- */
+    .hud-panel h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .hud-panel p,
+    .section-intro {
+        font-size: 1rem;
+    }
+
+    /* --- Modal Content --- */
+    .modal-window {
+        padding: 40px 20px;
+        width: 95%;
+    }
+
+    .raytheon-projects-container,
+    .engineering-projects-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .raytheon-project,
+    .engineering-project {
+        width: 100%;
+    }
+
+    /* --- Architecture Modal (Responsive) --- */
+    .architectural-step .step-content {
+        flex-direction: column;
+    }
+
+    .step-image-placeholder {
+        width: 100%;
+        height: 120px;
+    }
 }
