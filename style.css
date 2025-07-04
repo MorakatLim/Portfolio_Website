@@ -885,83 +885,91 @@ body.modal-open .modal-window {
 
 @media (max-width: 900px) {
 
-    /* --- General Section Layout --- */
+    /* --- Core Layout & Scrolling Fixes --- */
+    html {
+        /* This is the MOST IMPORTANT FIX. It disables the page-snapping effect on mobile, */
+        /* which allows you to scroll freely through sections that are taller than the screen. */
+        scroll-snap-type: none;
+    }
+
     section {
-        /* This is the most critical fix. It allows sections to grow vertically with their content, */
-        /* preventing elements from being cut off or "disappearing". */
-        height: auto;
-        min-height: 100vh; /* Ensures sections still fill the screen but can grow larger */
-        padding: 100px 20px 60px 20px; /* Adjust padding for top nav space */
-        overflow: visible;  /* Allow content to be seen even if it overflows the min-height */
-        overflow-x: hidden; /* Prevent unwanted horizontal scrolling */
+        /* Let the content inside each section determine its height. */
+        height: auto; 
+        /* Add more padding at the top to ensure content doesn't hide behind the nav bar. */
+        padding: 100px 20px 60px 20px; 
+        overflow-x: hidden; /* Prevent unwanted side-to-side scrolling */
     }
 
     /* --- Top Navigation --- */
     #top-nav {
-        background: rgba(1, 4, 9, 0.7); /* Make nav bar visible on mobile */
+        background: rgba(1, 4, 9, 0.7);
         backdrop-filter: blur(5px);
         padding: 5px 0;
-        flex-wrap: wrap; /* Allows nav items to wrap onto a new line */
+        flex-wrap: wrap;
         justify-content: center;
     }
 
     .nav-list {
-        height: auto; /* Allow the nav to grow in height if items wrap */
+        height: auto;
     }
 
     .nav-list li a {
         font-size: 0.8rem;
         line-height: 30px;
-        padding: 0 10px;
+        padding: 0 8px;
     }
 
     .nav-list li.nav-active a {
-        font-size: 0.85rem; /* Adjust active link size */
+        font-size: 0.85rem;
     }
 
     /* --- Hero Section (Homepage) --- */
     #hero {
         display: flex;
-        flex-direction: column; /* Stack text on top of the 3D sphere */
-        justify-content: center; /* Center content vertically */
+        flex-direction: column;
+        justify-content: center;
         text-align: center;
-        min-height: 100vh; /* Ensure it still takes up the full screen height */
-        padding-top: 80px;
+        min-height: 95vh; /* Use slightly less than 100vh to account for mobile browser bars */
     }
 
     .hero-content {
-        max-width: 95%; /* Use more of the screen width */
-        text-align: center;
-        order: 1; /* Ensure text content comes first */
-        margin-bottom: 20px;
+        max-width: 95%;
+        order: 1; /* Keep text above the sphere */
     }
 
     .hero-content h1 {
-        font-size: 3.5rem; /* Reduce heading font size */
+        /* This creates a fluid font size that scales with the screen width. */
+        /* Format: clamp(minimum_size, preferred_size, maximum_size) */
+        font-size: clamp(2.8rem, 12vw, 4rem);
+        line-height: 1.15; /* Adjust line height for large, multi-line text */
     }
 
     .hero-content .subtitle {
-        font-size: 1.4rem; /* Reduce subtitle font size */
+        font-size: 1.2rem;
     }
 
     .hero-content .mission-statement {
-        font-size: 1rem; /* Reduce paragraph font size */
+        font-size: 0.95rem; /* Make text slightly smaller for a better fit */
     }
     
     .hero-socials {
-        justify-content: center; /* Center social media icons */
+        justify-content: center;
+        margin-top: 1.5rem;
     }
 
     #sphere-container {
-        order: 2; /* Place sphere after the text content */
-        position: relative; /* Remove absolute positioning to place it in the normal flow */
-        height: 40vh; /* Define a specific height for the sphere container */
+        order: 2; /* Keep sphere below the text */
+        position: relative;
+        height: 35vh; /* Reduce sphere height to give text more room */
         width: 100%;
+        margin-top: 20px;
     }
 
     /* --- About Me Section --- */
     .about-container {
-        grid-template-columns: 1fr; /* Stack photo and content vertically */
+        grid-template-columns: 1fr; /* Fallback for the grid */
+        display: flex;
+        flex-direction: column; /* Ensure vertical stacking */
         text-align: center;
         gap: 20px;
     }
@@ -971,46 +979,47 @@ body.modal-open .modal-window {
     }
 
     .about-photo-container {
-        margin: 0 auto 20px; /* Center the profile photo */
+        margin: 0 auto 20px;
+        width: 200px; /* Give the photo a smaller, predictable size */
+        height: 200px;
     }
     
     .about-right .about-bio {
-        font-size: 1rem; /* Adjust bio font size for readability */
+        font-size: 0.95rem;
     }
 
+    /* Convert the project boxes to a simple vertical list on mobile */
     .projects-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Allow project cards to wrap flexibily */
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
-
-    /* --- General HUD Panels (For Engineering, Architecture, etc.) --- */
+    
+    /* --- General HUD Panels (Engineering, etc.) --- */
     .hud-panel h1 {
-        font-size: 2.5rem; /* Reduce title font size */
+        font-size: 2.2rem;
     }
 
     .hud-panel p {
-        font-size: 1rem; /* Adjust paragraph font size */
+        font-size: 1rem;
     }
 
     /* --- Modal Content --- */
     .modal-window {
-        padding: 40px 20px; /* Adjust padding for smaller screens */
+        padding: 40px 20px;
         width: 95%;
     }
     
     .raytheon-projects-container,
     .engineering-projects-container {
-        flex-direction: column; /* Stack content vertically inside modals */
+        flex-direction: column;
         align-items: center;
         gap: 30px;
     }
 
     .raytheon-project,
     .engineering-project {
-        width: 100%; /* Make projects take full width inside the modal */
-    }
-
-    .skills-icons {
-        gap: 20px; /* Reduce space between skill icons */
+        width: 100%;
     }
 }
 /* =================================================================== */
