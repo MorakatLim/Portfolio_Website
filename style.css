@@ -5,9 +5,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-    --clr-cosmic-glow: #87cefa;
+    --clr-gold: #FFD700;
+    --clr-gold-glow: rgba(255, 215, 0, 0.5);
+    --clr-purple: #9370DB;
+    --clr-purple-glow: rgba(147, 112, 219, 0.5);
     --clr-engineering-bg: #010409;
-    --clr-engineering-glow: #00e6e6;
 }
 
 /* =================================================================== */
@@ -51,7 +53,7 @@ body.modal-open {
 
 a:focus-visible,
 button:focus-visible {
-    outline: 3px solid var(--clr-cosmic-glow);
+    outline: 3px solid var(--clr-gold);
     outline-offset: 4px;
     border-radius: 4px;
 }
@@ -108,7 +110,7 @@ button:focus-visible {
 
 .nav-list li a:hover {
     color: #fff;
-    text-shadow: 0 0 5px var(--clr-cosmic-glow);
+    text-shadow: 0 0 8px var(--clr-gold-glow);
     opacity: 1;
 }
 
@@ -117,7 +119,7 @@ button:focus-visible {
     letter-spacing: 1px;
     font-size: 1.1em;
     opacity: 1;
-    text-shadow: 0 0 8px var(--clr-cosmic-glow);
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 /* =================================================================== */
@@ -163,6 +165,8 @@ section:focus {
 .hud-panel h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 .hud-panel p {
@@ -201,7 +205,7 @@ section:focus {
 
 .theme-hero .hero-content {
     color: #fff;
-    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(135, 206, 250, 0.5);
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
     z-index: 1;
     pointer-events: none;
     max-width: 50%;
@@ -215,6 +219,8 @@ section:focus {
 .hero-content h1 {
     font-size: 6rem;
     margin-bottom: 0.5rem;
+    color: #fff;
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .hero-content .subtitle {
@@ -235,7 +241,7 @@ section:focus {
     display: inline-block;
     padding: 12px 30px;
     margin-top: 2rem;
-    border: 2px solid var(--clr-cosmic-glow);
+    border: 2px solid var(--clr-gold);
     border-radius: 50px;
     color: #fff;
     background: transparent;
@@ -243,14 +249,14 @@ section:focus {
     font-weight: 600;
     font-size: 1.1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(135, 206, 250, 0.3);
+    box-shadow: 0 0 15px var(--clr-gold-glow), 0 0 25px var(--clr-purple-glow);
 }
 
 .hero-cta:hover {
-    background-color: var(--clr-cosmic-glow);
+    background-color: var(--clr-gold);
     color: #000011;
-    box-shadow: 0 0 30px rgba(135, 206, 250, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0 30px var(--clr-gold-glow), 0 0 45px var(--clr-purple-glow);
+    transform: translateY(-3px) scale(1.05);
 }
 
 .hero-socials {
@@ -261,15 +267,15 @@ section:focus {
 }
 
 .hero-socials a {
-    color: var(--clr-cosmic-glow);
+    color: var(--clr-gold);
     opacity: 0.8;
     transition: all 0.3s ease;
 }
 
 .hero-socials a:hover {
     opacity: 1;
-    transform: translateY(-3px);
-    filter: drop-shadow(0 0 8px rgba(135, 206, 250, 0.8));
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 8px var(--clr-gold)) drop-shadow(0 0 12px var(--clr-purple));
 }
 
 #sphere-container {
@@ -344,8 +350,8 @@ section:focus {
     background-image: url('me_ghibli_style.jpg');
     background-size: cover;
     background-position: center;
-    border: 4px solid var(--clr-cosmic-glow);
-    box-shadow: 0 0 25px rgba(135, 206, 250, 0.4);
+    border: 4px solid var(--clr-gold);
+    box-shadow: 0 0 25px var(--clr-gold-glow), 0 0 40px var(--clr-purple-glow);
     animation: float 6s ease-in-out infinite;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -353,7 +359,7 @@ section:focus {
 
 .about-photo-container:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(135, 206, 250, 0.7);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 40px var(--clr-gold-glow), 0 0 60px var(--clr-purple-glow);
 }
 
 .about-right {
@@ -364,8 +370,8 @@ section:focus {
 .about-right h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(135, 206, 250, 0.4);
     color: #fff;
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .about-right .about-bio {
@@ -386,7 +392,7 @@ section:focus {
 .project-box {
     background: rgba(10, 25, 47, 0.25);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(135, 206, 250, 0.2);
+    border: 1px solid var(--clr-purple);
     border-radius: 10px;
     padding: 25px;
     text-align: center;
@@ -402,14 +408,16 @@ section:focus {
 .project-icon svg {
     width: 40px;
     height: 40px;
-    stroke: var(--clr-cosmic-glow);
+    stroke: var(--clr-gold);
     stroke-width: 1.5;
+    filter: drop-shadow(0 0 5px var(--clr-gold)) drop-shadow(0 0 10px var(--clr-purple));
 }
 
 .project-box h3 {
     margin-bottom: 10px;
     font-weight: 600;
     color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .project-box p {
@@ -432,9 +440,9 @@ section:focus {
 }
 
 .project-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(135, 206, 250, 0.5);
-    border-image: conic-gradient(from var(--angle), #010409, #00e6e6, #87cefa, #00e6e6, #010409) 1;
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px var(--clr-purple-glow), 0 0 30px var(--clr-gold-glow);
+    border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
     animation: border-spin 3s linear infinite;
 }
 
@@ -446,10 +454,10 @@ section:focus {
 .theme-real-estate .hud-panel,
 .theme-occupation .hud-panel,
 .theme-contact .hud-panel {
-    border: 1px solid rgba(135, 206, 250, 0.3);
+    border: 1px solid var(--clr-purple);
     background: rgba(10, 25, 47, 0.2);
     backdrop-filter: blur(5px);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2), 0 0 35px var(--clr-purple-glow);
     color: #fff;
 }
 
@@ -461,7 +469,7 @@ section:focus {
     width: 100%;
     height: 100%;
     z-index: 1;
-    filter: blur(1.5px);
+    filter: blur(1.5px) drop-shadow(0 0 10px var(--clr-purple-glow));
 }
 
 .circuitry-background svg {
@@ -472,7 +480,7 @@ section:focus {
 
 .circuit-path {
     fill: none;
-    stroke: rgba(0, 230, 230, 0.4);
+    stroke: var(--clr-purple-glow);
     stroke-width: 2;
     stroke-dasharray: 500;
     stroke-dashoffset: 500;
@@ -493,13 +501,14 @@ section:focus {
 .theme-architecture .hud-panel {
     padding: 38px;
     position: relative;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--clr-purple);
     background-color: rgba(1, 4, 9, 0.4);
     backdrop-filter: blur(2px);
     background-image:
-        linear-gradient(rgba(135, 206, 250, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(135, 206, 250, 0.1) 1px, transparent 1px);
+        linear-gradient(var(--clr-purple-glow) 1px, transparent 1px),
+        linear-gradient(90deg, var(--clr-purple-glow) 1px, transparent 1px);
     background-size: 25px 25px;
+    box-shadow: 0 0 25px var(--clr-purple-glow);
 }
 
 .theme-architecture .hud-panel::before {
@@ -509,21 +518,22 @@ section:focus {
     left: 5px;
     right: 5px;
     bottom: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--clr-purple);
 }
 
 .theme-architecture .hud-panel h1 {
-    color: #2a3a4a;
+    color: #fff;
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 /* --- Contact Theme --- */
 .theme-contact .hero-cta {
-    border-color: var(--clr-cosmic-glow);
+    border-color: var(--clr-gold);
     color: #fff;
 }
 
 .theme-contact .hero-cta:hover {
-    background-color: var(--clr-cosmic-glow);
+    background-color: var(--clr-gold);
     color: #000011;
 }
 
@@ -543,19 +553,20 @@ section:focus {
 }
 
 .arrow {
-    color: #fff;
+    color: var(--clr-gold);
     opacity: 0.6;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
     text-decoration: none;
+    filter: drop-shadow(0 0 5px var(--clr-gold)) drop-shadow(0 0 8px var(--clr-purple));
 }
 
 .arrow:hover {
     opacity: 1;
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.1);
 }
 
 .down-arrow:hover {
-    transform: translateY(3px);
+    transform: translateY(3px) scale(1.1);
 }
 
 /* --- Modal Styles --- */
@@ -584,14 +595,14 @@ body.modal-open .modal-overlay {
 
 .modal-window {
     background: rgba(10, 25, 47, 0.6);
-    border: 1px solid rgba(135, 206, 250, 0.5);
+    border: 1px solid var(--clr-purple);
     border-radius: 15px;
     padding: 40px;
     width: 90%;
     max-width: 1000px;
     position: relative;
     color: #fff;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px var(--clr-purple-glow);
     transform: scale(0.9);
     transition: transform 0.4s ease;
     max-height: 90vh;
@@ -614,16 +625,18 @@ body.modal-open .modal-window {
     right: 15px;
     background: transparent;
     border: none;
-    color: #fff;
+    color: var(--clr-gold);
     font-size: 2rem;
     line-height: 1;
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .modal-close-btn:hover {
     opacity: 1;
+    transform: scale(1.1) rotate(90deg);
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .modal-content-area {
@@ -631,9 +644,11 @@ body.modal-open .modal-window {
     padding-bottom: 50px;
 }
 
-.modal-content-area h2 {
+.modal-content-area h2,
+.modal-content-area h3 {
     margin-bottom: 10px;
-    color: var(--clr-cosmic-glow);
+    color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 .modal-content-area p {
@@ -655,8 +670,8 @@ body.modal-open .modal-window {
     background-image: url('me_ghibli_style.jpg');
     background-size: cover;
     background-position: center;
-    border: 4px solid var(--clr-cosmic-glow);
-    box-shadow: 0 0 30px rgba(135, 206, 250, 0.5);
+    border: 4px solid var(--clr-gold);
+    box-shadow: 0 0 30px var(--clr-gold-glow), 0 0 45px var(--clr-purple-glow);
     margin-bottom: 25px;
 }
 
@@ -683,11 +698,11 @@ body.modal-open .modal-window {
     left: 50%;
     transform: translateX(-50%);
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
+    border: 2px solid var(--clr-purple);
+    color: var(--clr-gold);
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
     padding: 5px;
     border-radius: 50%;
     display: flex;
@@ -697,7 +712,8 @@ body.modal-open .modal-window {
 
 .modal-expand-btn:hover {
     opacity: 1;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--clr-purple-glow);
+    transform: translateX(-50%) scale(1.1);
 }
 
 .modal-expand-btn svg {
@@ -712,7 +728,7 @@ body.modal-open .modal-window {
     opacity: 0;
     transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-top 0.5s ease-out;
     margin-top: 0;
-    border-top: 1px solid rgba(135, 206, 250, 0.2);
+    border-top: 1px solid var(--clr-purple);
 }
 
 .modal-window.expanded .modal-expandable-content {
@@ -731,9 +747,10 @@ body.modal-open .modal-window {
     margin-top: 25px;
     margin-bottom: 15px;
     padding-bottom: 5px;
-    border-bottom: 1px solid rgba(135, 206, 250, 0.3);
-    color: var(--clr-cosmic-glow);
+    border-bottom: 1px solid var(--clr-purple);
+    color: #fff;
     font-weight: 600;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .gallery-category-title:first-of-type {
@@ -761,11 +778,13 @@ body.modal-open .modal-window {
     display: block;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .modal-gallery-container img:hover {
-    box-shadow: 0 0 12px var(--clr-cosmic-glow);
-    transform: scale(1.03);
+    box-shadow: 0 0 12px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
+    transform: scale(1.03) translateY(-2px);
+    border-color: var(--clr-gold);
 }
 
 /* --- Modal Featured Image --- */
@@ -774,6 +793,7 @@ body.modal-open .modal-window {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--clr-purple);
 }
 
 .modal-featured-image {
@@ -795,7 +815,7 @@ body.modal-open .modal-window {
     margin-top: 20px;
     border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(135, 206, 250, 0.3);
+    border: 1px solid var(--clr-purple);
     overflow: hidden;
 }
 
@@ -832,22 +852,23 @@ body.modal-open .modal-window {
     max-width: 90%;
     max-height: 85%;
     object-fit: contain;
-    box-shadow: 0 0 50px rgba(135, 206, 250, 0.5);
+    box-shadow: 0 0 40px var(--clr-gold-glow), 0 0 60px var(--clr-purple-glow);
 }
 
 .lightbox-close {
     position: absolute;
     top: 20px;
     right: 35px;
-    color: #fff;
+    color: var(--clr-gold);
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, text-shadow 0.2s ease;
 }
 
 .lightbox-close:hover {
     transform: scale(1.1);
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .lightbox-nav {
@@ -855,20 +876,21 @@ body.modal-open .modal-window {
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+    border: 1px solid var(--clr-purple);
+    color: var(--clr-gold);
     cursor: pointer;
     padding: 15px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
     z-index: 1301;
 }
 
 .lightbox-nav:hover {
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--clr-purple-glow);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .lightbox-prev {
@@ -890,6 +912,8 @@ body.modal-open .modal-window {
     max-width: 700px;
     margin: 0 auto 30px auto;
     text-align: left;
+    border-left: 3px solid var(--clr-gold);
+    padding-left: 15px;
 }
 
 .raytheon-projects-container {
@@ -897,7 +921,7 @@ body.modal-open .modal-window {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 20px;
-    border-top: 1px solid rgba(135, 206, 250, 0.3);
+    border-top: 1px solid var(--clr-purple);
 }
 
 .raytheon-project {
@@ -906,8 +930,8 @@ body.modal-open .modal-window {
 }
 
 .raytheon-icon {
-    color: var(--clr-cosmic-glow);
-    filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.7));
+    color: var(--clr-gold);
+    filter: drop-shadow(0 0 8px var(--clr-gold-glow)) drop-shadow(0 0 12px var(--clr-purple-glow));
     margin-bottom: 15px;
 }
 
@@ -919,6 +943,7 @@ body.modal-open .modal-window {
     font-size: 1.2rem;
     font-weight: 600;
     color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
     margin: 0;
 }
 
@@ -936,6 +961,8 @@ body.modal-open .modal-window {
     max-width: 700px;
     margin: 0 auto 30px auto;
     text-align: left;
+    border-left: 3px solid var(--clr-gold);
+    padding-left: 15px;
 }
 
 .engineering-projects-container {
@@ -943,7 +970,7 @@ body.modal-open .modal-window {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 20px;
-    border-top: 1px solid rgba(135, 206, 250, 0.3);
+    border-top: 1px solid var(--clr-purple);
 }
 
 .engineering-project {
@@ -955,7 +982,7 @@ body.modal-open .modal-window {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid rgba(135, 206, 250, 0.3);
+    border: 1px solid var(--clr-purple);
     margin-bottom: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
@@ -977,13 +1004,14 @@ body.modal-open .modal-window {
     display: inline-block;
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--clr-cosmic-glow);
+    color: #fff;
     text-decoration: none;
     transition: text-shadow 0.3s ease;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .engineering-title-link:hover {
-    text-shadow: 0 0 8px var(--clr-cosmic-glow);
+    text-shadow: 0 0 15px var(--clr-gold-glow);
 }
 
 /* --- Architecture Modal (OLD) --- */
@@ -997,6 +1025,7 @@ body.modal-open .modal-window {
     font-weight: 600;
     color: #fff;
     margin-bottom: 5px;
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .architecture-project-desc {
@@ -1009,8 +1038,8 @@ body.modal-open .modal-window {
 .architecture-philosophy {
     padding: 20px 0;
     margin-bottom: 20px;
-    border-top: 1px solid rgba(135, 206, 250, 0.3);
-    border-bottom: 1px solid rgba(135, 206, 250, 0.3);
+    border-top: 1px solid var(--clr-purple);
+    border-bottom: 1px solid var(--clr-purple);
     text-align: center;
 }
 
@@ -1049,8 +1078,8 @@ body.modal-open .modal-window {
 }
 
 .skill-item svg {
-    color: var(--clr-cosmic-glow);
-    filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.5));
+    color: var(--clr-gold);
+    filter: drop-shadow(0 0 8px var(--clr-gold-glow)) drop-shadow(0 0 12px var(--clr-purple-glow));
 }
 
 .skill-item p {
@@ -1068,11 +1097,11 @@ body.modal-open .modal-window {
     position: relative;
 }
 
-.engineering-main-container .section-title {
+.section-title {
     font-size: 3rem;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(0, 230, 230, 0.4);
     color: #fff;
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .engineering-main-container .section-intro {
@@ -1093,7 +1122,7 @@ body.modal-open .modal-window {
 .engineering-project-card {
     background: rgba(10, 25, 47, 0.3);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 230, 230, 0.25);
+    border: 1px solid var(--clr-purple);
     border-radius: 12px;
     padding: 30px;
     text-align: left;
@@ -1104,9 +1133,9 @@ body.modal-open .modal-window {
 }
 
 .engineering-project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px rgba(0, 230, 230, 0.5);
-    border-image: conic-gradient(from var(--angle), #010409, #00e6e6, #87cefa, #00e6e6, #010409) 1;
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px var(--clr-purple-glow), 0 0 35px var(--clr-gold-glow);
+    border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
     animation: border-spin 3s linear infinite;
 }
 
@@ -1114,8 +1143,8 @@ body.modal-open .modal-window {
     margin-bottom: 15px;
     font-weight: 600;
     font-size: 1.5rem;
-    color: var(--clr-engineering-glow);
-    text-shadow: 0 0 8px rgba(0, 230, 230, 0.5);
+    color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .engineering-project-card p {
@@ -1133,12 +1162,6 @@ body.modal-open .modal-window {
     padding: 20px;
     z-index: 2;
     position: relative;
-}
-
-.architecture-main-container .section-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(135, 206, 250, 0.4);
 }
 
 .architecture-main-container .section-intro {
@@ -1159,7 +1182,7 @@ body.modal-open .modal-window {
 .architecture-project-card {
     background: rgba(10, 25, 47, 0.3);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(135, 206, 250, 0.25);
+    border: 1px solid var(--clr-purple);
     border-radius: 12px;
     padding: 30px;
     text-align: left;
@@ -1170,9 +1193,9 @@ body.modal-open .modal-window {
 }
 
 .architecture-project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px rgba(135, 206, 250, 0.5);
-    border-image: conic-gradient(from var(--angle), #010409, #00e6e6, #87cefa, #00e6e6, #010409) 1;
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 25px var(--clr-purple-glow), 0 0 35px var(--clr-gold-glow);
+    border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
     animation: border-spin 3s linear infinite;
 }
 
@@ -1180,8 +1203,8 @@ body.modal-open .modal-window {
     margin-bottom: 15px;
     font-weight: 600;
     font-size: 1.5rem;
-    color: var(--clr-cosmic-glow);
-    text-shadow: 0 0 8px rgba(135, 206, 250, 0.5);
+    color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .architecture-project-card p {
@@ -1198,14 +1221,14 @@ body.modal-open .modal-window {
     text-align: left;
     max-width: 90%;
     margin: 0 0 25px 0;
-    border-left: 3px solid var(--clr-cosmic-glow);
+    border-left: 3px solid var(--clr-gold);
     padding-left: 15px;
 }
 
 .modal-steps-toggle-btn {
-    background: rgba(135, 206, 250, 0.1);
-    border: 1px solid rgba(135, 206, 250, 0.3);
-    color: rgba(255, 255, 255, 0.9);
+    background: rgba(147, 112, 219, 0.1);
+    border: 1px solid var(--clr-purple);
+    color: var(--clr-gold);
     padding: 8px 15px;
     border-radius: 20px;
     cursor: pointer;
@@ -1213,12 +1236,13 @@ body.modal-open .modal-window {
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .modal-steps-toggle-btn:hover {
-    background: rgba(135, 206, 250, 0.2);
-    border-color: rgba(135, 206, 250, 0.5);
+    background: var(--clr-purple-glow);
+    border-color: var(--clr-purple);
+    transform: scale(1.05);
 }
 
 .toggle-arrow {
@@ -1248,9 +1272,8 @@ body.modal-open .modal-window {
 
 .architectural-step {
     min-height: 0;
-    /* Required for the grid animation to work correctly */
     background: rgba(0, 0, 0, 0.2);
-    border-left: 3px solid var(--clr-cosmic-glow);
+    border-left: 3px solid var(--clr-gold);
     padding: 20px;
     border-radius: 0 8px 8px 0;
 }
@@ -1259,6 +1282,7 @@ body.modal-open .modal-window {
     margin: 0 0 15px 0;
     font-weight: 600;
     color: #fff;
+    text-shadow: 0 0 10px var(--clr-gold-glow);
 }
 
 .architectural-step .step-content {
@@ -1271,7 +1295,7 @@ body.modal-open .modal-window {
     width: 150px;
     height: 100px;
     background-color: rgba(0, 0, 0, 0.3);
-    border: 1px dashed rgba(135, 206, 250, 0.4);
+    border: 1px dashed var(--clr-purple);
     border-radius: 4px;
     display: flex;
     justify-content: center;
@@ -1295,18 +1319,13 @@ body.modal-open .modal-window {
 
     /* --- Core Layout & Scrolling Fixes --- */
     html {
-        /* This is the MOST IMPORTANT FIX. It disables the page-snapping effect on mobile, */
-        /* which allows you to scroll freely through sections that are taller than the screen. */
         scroll-snap-type: none;
     }
 
     section {
-        /* Let the content inside each section determine its height. */
         height: auto;
-        /* Add more padding at the top to ensure content doesn't hide behind the nav bar. */
         padding: 100px 20px 60px 20px;
         overflow-x: hidden;
-        /* Prevent unwanted side-to-side scrolling */
     }
 
     /* --- Top Navigation --- */
@@ -1339,21 +1358,16 @@ body.modal-open .modal-window {
         justify-content: center;
         text-align: center;
         min-height: 95vh;
-        /* Use slightly less than 100vh to account for mobile browser bars */
     }
 
     .hero-content {
         max-width: 95%;
         order: 1;
-        /* Keep text above the sphere */
     }
 
     .hero-content h1 {
-        /* This creates a fluid font size that scales with the screen width. */
-        /* Format: clamp(minimum_size, preferred_size, maximum_size) */
         font-size: clamp(2.8rem, 12vw, 4rem);
         line-height: 1.15;
-        /* Adjust line height for large, multi-line text */
     }
 
     .hero-content .subtitle {
@@ -1362,7 +1376,6 @@ body.modal-open .modal-window {
 
     .hero-content .mission-statement {
         font-size: 0.95rem;
-        /* Make text slightly smaller for a better fit */
     }
 
     .hero-socials {
@@ -1372,10 +1385,8 @@ body.modal-open .modal-window {
 
     #sphere-container {
         order: 2;
-        /* Keep sphere below the text */
         position: relative;
         height: 35vh;
-        /* Reduce sphere height to give text more room */
         width: 100%;
         margin-top: 20px;
     }
@@ -1383,10 +1394,8 @@ body.modal-open .modal-window {
     /* --- About Me Section --- */
     .about-container {
         grid-template-columns: 1fr;
-        /* Fallback for the grid */
         display: flex;
         flex-direction: column;
-        /* Ensure vertical stacking */
         text-align: center;
         gap: 20px;
     }
@@ -1398,7 +1407,6 @@ body.modal-open .modal-window {
     .about-photo-container {
         margin: 0 auto 20px;
         width: 200px;
-        /* Give the photo a smaller, predictable size */
         height: 200px;
     }
 
@@ -1406,7 +1414,6 @@ body.modal-open .modal-window {
         font-size: 0.95rem;
     }
 
-    /* Convert the project boxes to a simple vertical list on mobile */
     .projects-grid {
         display: flex;
         flex-direction: column;
@@ -1414,10 +1421,7 @@ body.modal-open .modal-window {
     }
 
     /* --- General HUD Panels (Engineering, etc.) --- */
-    .hud-panel h1 {
-        font-size: 2.2rem;
-    }
-    
+    .hud-panel h1,
     .section-title {
         font-size: 2.2rem;
     }

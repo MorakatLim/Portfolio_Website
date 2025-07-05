@@ -706,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dysonGeometry = new THREE.IcosahedronGeometry(5, 5);
 
         const panelMaterial = new THREE.MeshPhongMaterial({
-            color: 0x87cefa,
+            color: 0x9370DB, // Changed back to Purple
             shininess: 90,
             specular: 0xffffff,
             transparent: true,
@@ -718,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const wireframeGeom = new THREE.WireframeGeometry(dysonGeometry);
         const wireframeMaterial = new THREE.LineBasicMaterial({
-            color: 0xadd8e6,
+            color: 0xFFD700, // Kept as Gold
             linewidth: 1
         });
         const dysonWireframe = new THREE.LineSegments(wireframeGeom, wireframeMaterial);
