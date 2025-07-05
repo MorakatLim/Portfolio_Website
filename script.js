@@ -204,9 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <div class="modal-architecture-content">
                     <div class="modal-featured-image-container">
-                        <img src="Projects/Architecture/arch_showcase_1.webp" 
-                             data-full-src="Projects/Architecture/arch_showcase_1.webp" 
-                             alt="Featured architectural project" 
+                        <img src="Projects/Architecture/arch_showcase_1.webp"
+                             data-full-src="Projects/Architecture/arch_showcase_1.webp"
+                             alt="Featured architectural project"
                              class="modal-featured-image">
                     </div>
                     <div class="architecture-project-details">
@@ -215,8 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="architecture-philosophy">
                         <h4>Design Philosophy</h4>
                         <p>
-                            My design philosophy centers on human-centric and sustainable design. 
-                            I believe that buildings should not only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated with their surroundings.
+                            My design philosophy centers on human-centric and sustainable design.
+                            I believe that buildings should not only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated
+                            with their surroundings.
                         </p>
                     </div>
                     <div class="skills-container">
@@ -651,11 +652,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ===================================================================
-    // === THREE.JS DYSON SPHERE INITIALIZATION ==========================
+    // === THREE.JS URBAN FABRIC INITIALIZATION ==========================
     // ===================================================================
 
     if (document.getElementById('sphere-container')) {
-        // --- Setup ---
         const container = document.getElementById('sphere-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
@@ -664,65 +664,76 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(renderer.domElement);
 
-        camera.position.z = 12;
+        camera.position.set(0, 5, 20); // Adjust camera position for a better view of the city
+        camera.lookAt(0, 0, 0);
 
         // --- Lighting ---
-        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
         scene.add(ambientLight);
 
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight.position.set(10, 10, 10);
-        scene.add(pointLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 15, 10);
+        scene.add(directionalLight);
 
         // --- Main Group ---
-        const dysonSphereGroup = new THREE.Group();
-        dysonSphereGroup.position.x = 0;
-        scene.add(dysonSphereGroup);
+        const urbanFabricGroup = new THREE.Group();
+        scene.add(urbanFabricGroup);
 
-        // --- Sun & Glow ---
-        const sunGeometry = new THREE.SphereGeometry(2.5, 32, 32);
-        const sunMaterial = new THREE.MeshBasicMaterial({
-            color: 0xffdd88,
-            side: THREE.BackSide,
-        });
-        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        dysonSphereGroup.add(sun);
+        // --- Ground Grid (Real Estate & Planning) ---
+        const gridSize = 30;
+        const gridDivisions = 30;
+        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x9370DB, 0x4B0082); // Purple and Darker Purple
+        gridHelper.material.opacity = 0.4;
+        gridHelper.material.transparent = true;
+        urbanFabricGroup.add(gridHelper);
 
-        const glowSpriteMaterial = new THREE.SpriteMaterial({
-            map: createGlowTexture(),
-            blending: THREE.AdditiveBlending,
+        // --- Abstract Buildings (Architecture & Design) ---
+        const buildings = [];
+        const buildingMaterial = new THREE.MeshStandardMaterial({
+            color: 0x8A2BE2, // Blue-Violet
             transparent: true,
-            opacity: 0.9,
+            opacity: 0.6,
+            roughness: 0.5,
+            metalness: 0.8,
+            emissive: 0x9370DB, // Purple glow
+            emissiveIntensity: 0.2
         });
-        const glowSprite = new THREE.Sprite(glowSpriteMaterial);
-        glowSprite.scale.set(8, 8, 1);
-        glowSprite.renderOrder = -1;
-        dysonSphereGroup.add(glowSprite);
-        // NOTE: The line below was in the original code. It adds the same glow sprite a second time.
-        // If this is unintentional, it can be removed.
-        dysonSphereGroup.add(glowSprite);
 
-        // --- Dyson Sphere Structure ---
-        const dysonGeometry = new THREE.IcosahedronGeometry(5, 5);
+        const numBuildings = 50;
+        for (let i = 0; i < numBuildings; i++) {
+            const geometry = Math.random() > 0.5 ? new THREE.BoxGeometry(1, Math.random() * 5 + 1, 1) : new THREE.CylinderGeometry(0.5, 0.5, Math.random() * 5 + 1, 8);
+            const building = new THREE.Mesh(geometry, buildingMaterial);
 
-        const panelMaterial = new THREE.MeshPhongMaterial({
-            color: 0x9370DB, // Changed back to Purple
-            shininess: 90,
-            specular: 0xffffff,
-            transparent: true,
-            opacity: 0.15,
-            side: THREE.DoubleSide
+            building.position.x = (Math.random() - 0.5) * gridSize * 0.8;
+            building.position.z = (Math.random() - 0.5) * gridSize * 0.8;
+            building.position.y = building.geometry.parameters.height / 2; // Position correctly on the grid
+
+            buildings.push(building);
+            urbanFabricGroup.add(building);
+        }
+
+        // --- Interconnecting Energy/Data Flow (Engineering) ---
+        const connections = [];
+        const connectionMaterial = new THREE.LineBasicMaterial({
+            color: 0xFFD700, // Gold
+            linewidth: 2
         });
-        const dysonPanels = new THREE.Mesh(dysonGeometry, panelMaterial);
-        dysonSphereGroup.add(dysonPanels);
 
-        const wireframeGeom = new THREE.WireframeGeometry(dysonGeometry);
-        const wireframeMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFD700, // Kept as Gold
-            linewidth: 1
-        });
-        const dysonWireframe = new THREE.LineSegments(wireframeGeom, wireframeMaterial);
-        dysonSphereGroup.add(dysonWireframe);
+        for (let i = 0; i < numBuildings / 2; i++) {
+            const buildingA = buildings[Math.floor(Math.random() * buildings.length)];
+            const buildingB = buildings[Math.floor(Math.random() * buildings.length)];
+
+            const points = [];
+            points.push(buildingA.position.clone());
+            points.push(new THREE.Vector3((buildingA.position.x + buildingB.position.x) / 2, Math.max(buildingA.position.y, buildingB.position.y) + 2, (buildingA.position.z + buildingB.position.z) / 2));
+            points.push(buildingB.position.clone());
+
+            const curve = new THREE.CatmullRomCurve3(points);
+            const lineGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(50));
+            const line = new THREE.Line(lineGeometry, connectionMaterial);
+            connections.push(line);
+            urbanFabricGroup.add(line);
+        }
 
         // --- Mouse Drag Controls ---
         let isDragging = false;
@@ -745,21 +756,34 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             const rotateAngleX = deltaMove.y * 0.005;
             const rotateAngleY = deltaMove.x * 0.005;
-            dysonSphereGroup.rotation.x += rotateAngleX;
-            dysonSphereGroup.rotation.y += rotateAngleY;
+            urbanFabricGroup.rotation.x += rotateAngleX;
+            urbanFabricGroup.rotation.y += rotateAngleY;
             previousMousePosition = { x: e.clientX, y: e.clientY };
         });
 
         // --- Animation Loop ---
         function animate() {
             requestAnimationFrame(animate);
+
             // Constant rotation when not dragging
             if (!isDragging) {
-                dysonSphereGroup.rotation.y += 0.0005;
+                urbanFabricGroup.rotation.y += 0.0005;
             }
-            // Sun pulsation effect
-            const time = Date.now() * 0.0005;
-            sun.scale.setScalar(Math.sin(time) * 0.05 + 1);
+
+            // Animate buildings (simple pulsation/scaling)
+            const time = Date.now() * 0.001;
+            buildings.forEach((building, index) => {
+                building.scale.y = 1 + Math.sin(time + index * 0.5) * 0.1;
+                building.position.y = (building.geometry.parameters.height / 2) * building.scale.y;
+            });
+
+            // Animate connections (pulsating color or movement if more complex shader)
+            // For simplicity, we'll just make them glow a bit
+            connections.forEach(line => {
+                line.material.color.setHSL(0.15 + Math.sin(time * 0.5) * 0.05, 1, 0.7 + Math.cos(time * 0.5) * 0.1); // subtle hue and lightness shift
+            });
+
+
             renderer.render(scene, camera);
         }
         animate();
@@ -770,14 +794,15 @@ document.addEventListener('DOMContentLoaded', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
 
-            // Adjust scale and opacity for different screen sizes
+            // Adjust scale for different screen sizes
             if (window.innerWidth <= 900) {
-                dysonSphereGroup.scale.set(0.6, 0.6, 0.6);
-                glowSpriteMaterial.opacity = 0.5;
+                urbanFabricGroup.scale.set(0.6, 0.6, 0.6);
+                camera.position.set(0, 5, 30); // Move camera back for smaller scale
             } else {
-                dysonSphereGroup.scale.set(1, 1, 1);
-                glowSpriteMaterial.opacity = 0.9;
+                urbanFabricGroup.scale.set(1, 1, 1);
+                camera.position.set(0, 5, 20); // Default camera position
             }
+            camera.lookAt(0, 0, 0); // Ensure camera always looks at the center
         });
 
         // Trigger resize on load to set the initial state
@@ -785,6 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Helper function (kept from original, but not directly used in new scene)
      * Generates a canvas texture for a glowing sphere.
      * @returns {THREE.CanvasTexture} - The generated texture.
     **/
