@@ -10,9 +10,7 @@
 </head>
 
 <body class="theme-hero">
-
-    <div id="particles-js-cosmic-bg"></div>
-
+    <canvas id="blueprint-background"></canvas>
     <nav id="top-nav">
         <ul class="nav-list">
         </ul>
@@ -21,7 +19,6 @@
 
     <main id="page-content">
         <section id="hero" data-theme="hero" tabindex="-1">
-            <div id="particles-js-cosmic-fg"></div>
             <div class="hero-content">
                 <h1 class="fade-in-up delay-1">Morakat Lim</h1>
                 <p class="subtitle fade-in-up delay-2">Engineer & Designer</p>
@@ -43,7 +40,6 @@
                     </a>
                 </div>
             </div>
-            <div id="sphere-container"></div>
             <div class="section-nav-arrows">
                 <a href="#about" class="arrow down-arrow" aria-label="Scroll down">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -69,7 +65,7 @@
                     </p>
                     <div class="projects-grid">
                         <div class="project-box" data-modal-key="engineering" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-engineering" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 20V10M18 20V4M6 20v-4" />
@@ -78,7 +74,7 @@
                             <p>Designing and building robust systems with cutting-edge technology.</p>
                         </div>
                         <div class="project-box" data-modal-key="architecture" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-architecture" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -88,7 +84,7 @@
                             <p>Conceptualizing and drafting aesthetic, functional, and innovative spaces.</p>
                         </div>
                         <div class="project-box" data-modal-key="realestate" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-realestate" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
@@ -98,7 +94,7 @@
                             <p>Real Estate investments, education, and knowledge.</p>
                         </div>
                         <div class="project-box" data-modal-key="raytheon" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-raytheon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -107,7 +103,7 @@
                             <p>Experience with large-scale projects in the defense and aerospace sector.</p>
                         </div>
                         <div class="project-box" data-modal-key="travels" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-travels" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"></circle>
@@ -120,7 +116,7 @@
                             <p>I am always traveling for work - Check out some of the places that I have been!</p>
                         </div>
                         <div class="project-box" data-modal-key="photoshop" role="button" tabindex="0">
-                            <div class="project-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <div class="project-icon"><svg id="icon-photoshop" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <polygon
@@ -148,23 +144,8 @@
         </section>
 
         <section id="engineering" data-theme="engineering" tabindex="-1">
-            <div class="circuitry-background">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0, 230, 230, 0.1)" stroke-width="1">
-                            </path>
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)"></rect>
-                    <path class="circuit-path" d="M 0 50 Q 50 10, 100 50 T 200 50"></path>
-                    <path class="circuit-path" d="M 0 150 Q 50 200, 100 150 T 200 150"></path>
-                    <path class="circuit-path" d="M 50 0 Q 10 50, 50 100 T 50 200"></path>
-                    <path class="circuit-path" d="M 150 0 Q 200 50, 150 100 T 150 200"></path>
-                </svg>
-            </div>
             <div class="engineering-main-container">
-                <h1 class="section-title">Engineering Projects</h1>
+                <h1 class="section-title decode-text">Engineering Projects</h1>
                 <p class="section-intro">
                     Driven by a passion for problem-solving, I focus on designing and building robust systems with cutting-edge technology. Below are some of the projects where I've applied my skills in software, firmware, and embedded systems.
                 </p>
@@ -199,7 +180,12 @@
 
         <section id="architecture" data-theme="architecture" tabindex="-1">
             <div class="architecture-main-container">
-                <h1 class="section-title">Architecture & Design</h1>
+                <svg id="architect-title-svg" viewBox="0 0 900 100" aria-labelledby="architectTitle">
+                    <title id="architectTitle">Architecture & Design</title>
+                    <text id="architect-title-text" x="50%" y="50%" dy=".35em" text-anchor="middle">
+                        Architecture & Design
+                    </text>
+                </svg>
                 <p class="section-intro">
                     My design philosophy centers on human-centric and sustainable design. I believe that buildings should not
                     only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated
@@ -285,8 +271,7 @@
         <img id="lightbox-image" src="" alt="Enlarged travel photo">
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vivus@latest/dist/vivus.min.js"></script>
     <script src="script.js"></script>
 </body>
 

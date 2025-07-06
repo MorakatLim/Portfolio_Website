@@ -6,7 +6,7 @@
 
 :root {
     --clr-gold: #FFD700;
-    --clr-gold-glow: rgba(255, 215, 0, 0.3); /* Reduced opacity for a softer glow */
+    --clr-gold-glow: rgba(255, 215, 0, 0.5);
     --clr-purple: #9370DB;
     --clr-purple-glow: rgba(147, 112, 219, 0.5);
     --clr-engineering-bg: #010409;
@@ -29,9 +29,23 @@ html {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #000011;
+    /* New high-contrast diagonal gradient */
+    background: linear-gradient(to bottom right, #5f4d15, #1b1502 30%, #020202 70%);
     color: #fff;
-    transition: background-color 0.8s ease, background-image 0.8s ease;
+}
+
+#blueprint-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+
+    /* Add the noise texture directly to the canvas background */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.2;
 }
 
 body.modal-open {
@@ -110,7 +124,7 @@ button:focus-visible {
 
 .nav-list li a:hover {
     color: #fff;
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
     opacity: 1;
 }
 
@@ -119,7 +133,7 @@ button:focus-visible {
     letter-spacing: 1px;
     font-size: 1.1em;
     opacity: 1;
-    text-shadow: 0 0 5px var(--clr-gold-glow), 0 0 10px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 /* =================================================================== */
@@ -166,7 +180,7 @@ section:focus {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: #fff;
-    text-shadow: 0 0 5px var(--clr-gold-glow), 0 0 10px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 .hud-panel p {
@@ -174,33 +188,14 @@ section:focus {
     line-height: 1.6;
 }
 
-[id^="particles-js-"] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    filter: blur(1px);
-}
-
-#particles-js-cosmic-bg {
-    position: fixed;
-    z-index: -1;
-    filter: blur(3px);
-}
 
 /* =================================================================== */
 /* === HERO SECTION ================================================== */
 /* =================================================================== */
 
-#particles-js-cosmic-bg {
-    background-image:
-        radial-gradient(ellipse at top left, rgba(17, 52, 83, 0.5) 0%, rgba(0, 0, 0, 0) 60%),
-        radial-gradient(ellipse at bottom right, rgba(136, 8, 8, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
-}
-
 #hero {
-    justify-content: flex-start;
+    justify-content: center;
+    text-align: center;
 }
 
 .theme-hero .hero-content {
@@ -209,7 +204,6 @@ section:focus {
     z-index: 1;
     pointer-events: none;
     max-width: 50%;
-    text-align: left;
 }
 
 .hero-content>* {
@@ -220,7 +214,7 @@ section:focus {
     font-size: 6rem;
     margin-bottom: 0.5rem;
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .hero-content .subtitle {
@@ -249,13 +243,13 @@ section:focus {
     font-weight: 600;
     font-size: 1.1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 15px var(--clr-gold-glow), 0 0 25px var(--clr-purple-glow);
 }
 
 .hero-cta:hover {
     background-color: var(--clr-gold);
     color: #000011;
-    box-shadow: 0 0 20px var(--clr-gold-glow), 0 0 30px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 30px var(--clr-gold-glow), 0 0 45px var(--clr-purple-glow);
     transform: translateY(-3px) scale(1.05);
 }
 
@@ -263,7 +257,7 @@ section:focus {
     margin-top: 2.5rem;
     display: flex;
     gap: 2.5rem;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .hero-socials a {
@@ -275,7 +269,7 @@ section:focus {
 .hero-socials a:hover {
     opacity: 1;
     transform: translateY(-3px) scale(1.1);
-    filter: drop-shadow(0 0 5px var(--clr-gold)) drop-shadow(0 0 8px var(--clr-purple)); /* Reduced gold glow */
+    filter: drop-shadow(0 0 8px var(--clr-gold)) drop-shadow(0 0 12px var(--clr-purple));
 }
 
 #sphere-container {
@@ -351,7 +345,7 @@ section:focus {
     background-size: cover;
     background-position: center;
     border: 4px solid var(--clr-gold);
-    box-shadow: 0 0 15px var(--clr-gold-glow), 0 0 25px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 25px var(--clr-gold-glow), 0 0 40px var(--clr-purple-glow);
     animation: float 6s ease-in-out infinite;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -359,7 +353,7 @@ section:focus {
 
 .about-photo-container:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 25px var(--clr-gold-glow), 0 0 40px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 40px var(--clr-gold-glow), 0 0 60px var(--clr-purple-glow);
 }
 
 .about-right {
@@ -371,7 +365,7 @@ section:focus {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .about-right .about-bio {
@@ -389,17 +383,6 @@ section:focus {
     gap: 20px;
 }
 
-.project-box {
-    background: rgba(10, 25, 47, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--clr-purple);
-    border-radius: 10px;
-    padding: 25px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: pointer;
-}
-
 .project-icon {
     height: 40px;
     margin-bottom: 15px;
@@ -411,13 +394,6 @@ section:focus {
     stroke: var(--clr-gold);
     stroke-width: 1.5;
     filter: drop-shadow(0 0 5px var(--clr-gold)) drop-shadow(0 0 10px var(--clr-purple));
-}
-
-.project-box h3 {
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #fff;
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced gold glow */
 }
 
 /* --- Project Box Hover Animation --- */
@@ -433,12 +409,58 @@ section:focus {
     }
 }
 
-.project-box:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--clr-purple-glow), 0 0 20px var(--clr-gold-glow); /* Reduced gold glow */
+/* === Unified Glass Card Style === */
+.project-box,
+.engineering-project-card,
+.architecture-project-card {
+    /* 1. The New Glass Background */
+    background: rgba(45, 52, 79, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    
+    /* 2. A more subtle border for the glass look */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* 3. Consolidated styles from all original cards */
+    border-radius: 12px;
+    padding: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+/* 4. Keeping the original hover effects */
+.project-box:hover,
+.engineering-project-card:hover,
+.architecture-project-card:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 0 15px var(--clr-purple-glow), 0 0 20px var(--clr-gold-glow);
     border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
     animation: border-spin 3s linear infinite;
 }
+
+
+.project-box h3,
+.engineering-project-card h3,
+.architecture-project-card h3 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 0 0 8px var(--clr-gold-glow);
+}
+
+.project-box p,
+.engineering-project-card p,
+.architecture-project-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
 
 /* =================================================================== */
 /* === THEME-SPECIFIC STYLES ========================================= */
@@ -451,45 +473,11 @@ section:focus {
     border: 1px solid var(--clr-purple);
     background: rgba(10, 25, 47, 0.2);
     backdrop-filter: blur(5px);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), 0 0 25px var(--clr-purple-glow); /* Reduced shadow */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2), 0 0 35px var(--clr-purple-glow);
     color: #fff;
 }
 
 /* --- Engineering Theme --- */
-.circuitry-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    filter: blur(1.5px) drop-shadow(0 0 8px var(--clr-purple-glow)); /* Reduced glow */
-}
-
-.circuitry-background svg {
-    transform: scale(3);
-    width: 100%;
-    height: 100%;
-}
-
-.circuit-path {
-    fill: none;
-    stroke: var(--clr-purple-glow);
-    stroke-width: 2;
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-    animation: flow 10s linear infinite;
-}
-
-.circuit-path:nth-child(2) { animation-delay: -2.5s; }
-.circuit-path:nth-child(3) { animation-delay: -5s; }
-.circuit-path:nth-child(4) { animation-delay: -7.5s; }
-
-@keyframes flow {
-    to {
-        stroke-dashoffset: -500;
-    }
-}
 
 /* --- Architecture Theme --- */
 .theme-architecture .hud-panel {
@@ -502,7 +490,7 @@ section:focus {
         linear-gradient(var(--clr-purple-glow) 1px, transparent 1px),
         linear-gradient(90deg, var(--clr-purple-glow) 1px, transparent 1px);
     background-size: 25px 25px;
-    box-shadow: 0 0 15px var(--clr-purple-glow); /* Reduced shadow */
+    box-shadow: 0 0 25px var(--clr-purple-glow);
 }
 
 .theme-architecture .hud-panel::before {
@@ -517,7 +505,7 @@ section:focus {
 
 .theme-architecture .hud-panel h1 {
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 /* --- Contact Theme --- */
@@ -551,7 +539,7 @@ section:focus {
     opacity: 0.6;
     transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
     text-decoration: none;
-    filter: drop-shadow(0 0 3px var(--clr-gold)) drop-shadow(0 0 5px var(--clr-purple)); /* Reduced glow */
+    filter: drop-shadow(0 0 5px var(--clr-gold)) drop-shadow(0 0 8px var(--clr-purple));
 }
 
 .arrow:hover {
@@ -589,14 +577,14 @@ body.modal-open .modal-overlay {
 
 .modal-window {
     background: rgba(10, 25, 47, 0.6);
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-gold);
     border-radius: 15px;
     padding: 40px;
     width: 90%;
     max-width: 1000px;
     position: relative;
     color: #fff;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px var(--clr-purple-glow); /* Reduced shadow */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px var(--clr-purple-glow);
     transform: scale(0.9);
     transition: transform 0.4s ease;
     max-height: 90vh;
@@ -630,7 +618,7 @@ body.modal-open .modal-window {
 .modal-close-btn:hover {
     opacity: 1;
     transform: scale(1.1) rotate(90deg);
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .modal-content-area {
@@ -642,7 +630,7 @@ body.modal-open .modal-window {
 .modal-content-area h3 {
     margin-bottom: 10px;
     color: #fff;
-    text-shadow: 0 0 5px var(--clr-gold-glow), 0 0 10px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow);
 }
 
 .modal-content-area p {
@@ -665,7 +653,7 @@ body.modal-open .modal-window {
     background-size: cover;
     background-position: center;
     border: 4px solid var(--clr-gold);
-    box-shadow: 0 0 20px var(--clr-gold-glow), 0 0 30px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 30px var(--clr-gold-glow), 0 0 45px var(--clr-purple-glow);
     margin-bottom: 25px;
 }
 
@@ -692,7 +680,7 @@ body.modal-open .modal-window {
     left: 50%;
     transform: translateX(-50%);
     background: transparent;
-    border: 2px solid var(--clr-purple);
+    border: 2px solid var(--clr-gold);
     color: var(--clr-gold);
     cursor: pointer;
     opacity: 0.7;
@@ -706,7 +694,7 @@ body.modal-open .modal-window {
 
 .modal-expand-btn:hover {
     opacity: 1;
-    background-color: var(--clr-purple-glow);
+    background-color: var(--clr-gold-glow);
     transform: translateX(-50%) scale(1.1);
 }
 
@@ -722,7 +710,7 @@ body.modal-open .modal-window {
     opacity: 0;
     transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-top 0.5s ease-out;
     margin-top: 0;
-    border-top: 1px solid var(--clr-purple);
+    border-top: 1px solid var(--clr-gold);
 }
 
 .modal-window.expanded .modal-expandable-content {
@@ -741,10 +729,10 @@ body.modal-open .modal-window {
     margin-top: 25px;
     margin-bottom: 15px;
     padding-bottom: 5px;
-    border-bottom: 1px solid var(--clr-purple);
+    border-bottom: 1px solid var(--clr-gold);
     color: #fff;
     font-weight: 600;
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .gallery-category-title:first-of-type {
@@ -776,7 +764,7 @@ body.modal-open .modal-window {
 }
 
 .modal-gallery-container img:hover {
-    box-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 12px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
     transform: scale(1.03) translateY(-2px);
     border-color: var(--clr-gold);
 }
@@ -787,7 +775,7 @@ body.modal-open .modal-window {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-gold);
 }
 
 .modal-featured-image {
@@ -799,7 +787,7 @@ body.modal-open .modal-window {
 }
 
 .modal-featured-image:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
 }
 
 /* --- Modal PDF Viewer --- */
@@ -809,7 +797,7 @@ body.modal-open .modal-window {
     margin-top: 20px;
     border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-gold);
     overflow: hidden;
 }
 
@@ -846,7 +834,7 @@ body.modal-open .modal-window {
     max-width: 90%;
     max-height: 85%;
     object-fit: contain;
-    box-shadow: 0 0 25px var(--clr-gold-glow), 0 0 40px var(--clr-purple-glow); /* Reduced gold glow */
+    box-shadow: 0 0 40px var(--clr-gold-glow), 0 0 60px var(--clr-purple-glow);
 }
 
 .lightbox-close {
@@ -862,7 +850,7 @@ body.modal-open .modal-window {
 
 .lightbox-close:hover {
     transform: scale(1.1);
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .lightbox-nav {
@@ -915,7 +903,7 @@ body.modal-open .modal-window {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 20px;
-    border-top: 1px solid var(--clr-purple);
+    border-top: 1px solid var(--clr-gold);
 }
 
 .raytheon-project {
@@ -925,7 +913,7 @@ body.modal-open .modal-window {
 
 .raytheon-icon {
     color: var(--clr-gold);
-    filter: drop-shadow(0 0 5px var(--clr-gold-glow)) drop-shadow(0 0 8px var(--clr-purple-glow)); /* Reduced gold glow */
+    filter: drop-shadow(0 0 8px var(--clr-gold-glow)) drop-shadow(0 0 12px var(--clr-purple-glow));
     margin-bottom: 15px;
 }
 
@@ -937,7 +925,7 @@ body.modal-open .modal-window {
     font-size: 1.2rem;
     font-weight: 600;
     color: #fff;
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
     margin: 0;
 }
 
@@ -964,7 +952,7 @@ body.modal-open .modal-window {
     justify-content: space-around;
     align-items: flex-start;
     padding-top: 20px;
-    border-top: 1px solid var(--clr-purple);
+    border-top: 1px solid var(--clr-gold);
 }
 
 .engineering-project {
@@ -976,7 +964,7 @@ body.modal-open .modal-window {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-gold);
     margin-bottom: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
@@ -1001,11 +989,11 @@ body.modal-open .modal-window {
     color: #fff;
     text-decoration: none;
     transition: text-shadow 0.3s ease;
-    text-shadow: 0 0 5px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 8px var(--clr-gold-glow);
 }
 
 .engineering-title-link:hover {
-    text-shadow: 0 0 10px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 15px var(--clr-gold-glow);
 }
 
 /* --- Architecture Modal (OLD) --- */
@@ -1019,7 +1007,7 @@ body.modal-open .modal-window {
     font-weight: 600;
     color: #fff;
     margin-bottom: 5px;
-    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .architecture-project-desc {
@@ -1032,8 +1020,8 @@ body.modal-open .modal-window {
 .architecture-philosophy {
     padding: 20px 0;
     margin-bottom: 20px;
-    border-top: 1px solid var(--clr-purple);
-    border-bottom: 1px solid var(--clr-purple);
+    border-top: 1px solid var(--clr-gold);
+    border-bottom: 1px solid var(--clr-gold);
     text-align: center;
 }
 
@@ -1073,7 +1061,7 @@ body.modal-open .modal-window {
 
 .skill-item svg {
     color: var(--clr-gold);
-    filter: drop-shadow(0 0 5px var(--clr-gold-glow)) drop-shadow(0 0 8px var(--clr-purple-glow)); /* Reduced gold glow */
+    filter: drop-shadow(0 0 8px var(--clr-gold-glow)) drop-shadow(0 0 12px var(--clr-purple-glow));
 }
 
 .skill-item p {
@@ -1095,7 +1083,7 @@ body.modal-open .modal-window {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-gold-glow), 0 0 15px var(--clr-purple-glow); /* Reduced gold glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow), 0 0 20px var(--clr-purple-glow);
 }
 
 .engineering-main-container .section-intro {
@@ -1113,28 +1101,39 @@ body.modal-open .modal-window {
     width: 100%;
 }
 
-.engineering-project-card {
-    background: rgba(10, 25, 47, 0.3);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--clr-purple);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-}
-
-.engineering-project-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 20px var(--clr-purple-glow), 0 0 25px var(--clr-gold-glow); /* Reduced gold glow */
-    border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
-    animation: border-spin 3s linear infinite;
-}
-
 
 /* === ARCHITECTURE SECTION (Custom) ============================ */
+/* New Architectural Title Animation Styles */
+#architect-title-svg {
+    width: 80%;
+    max-width: 900px;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    font-weight: 600;
+    overflow: visible;
+}
+
+#architect-title-text {
+    font-family: 'Poppins', sans-serif;
+    fill: #fff; /* The text is now solid white from the start */
+    /* This clip-path hides the text by default, collapsing it to a vertical line in the center */
+    clip-path: inset(0 50% 0 50%);
+}
+
+/* This class triggers the animation when added by JavaScript */
+#architect-title-svg.animate #architect-title-text {
+    /* The animation will un-clip the text over 2 seconds */
+    animation: reveal-from-middle 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Keyframes for the "meet in the middle" reveal effect */
+@keyframes reveal-from-middle {
+    from {
+        clip-path: inset(0 50% 0 50%);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
 .architecture-main-container {
     max-width: 1200px;
     width: 100%;
@@ -1159,27 +1158,6 @@ body.modal-open .modal-window {
     width: 100%;
 }
 
-.architecture-project-card {
-    background: rgba(10, 25, 47, 0.3);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--clr-purple);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-}
-
-.architecture-project-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 20px var(--clr-purple-glow), 0 0 25px var(--clr-gold-glow); /* Reduced gold glow */
-    border-image: conic-gradient(from var(--angle), #010409, var(--clr-gold), var(--clr-purple), var(--clr-gold), #010409) 1;
-    animation: border-spin 3s linear infinite;
-}
-
-
 /* === ARCHITECTURE MODAL (7 Steps) ================================ */
 .modal-architecture-summary {
     font-size: 1.05rem;
@@ -1193,7 +1171,7 @@ body.modal-open .modal-window {
 
 .modal-steps-toggle-btn {
     background: rgba(147, 112, 219, 0.1);
-    border: 1px solid var(--clr-purple);
+    border: 1px solid var(--clr-gold);
     color: var(--clr-gold);
     padding: 8px 15px;
     border-radius: 20px;
@@ -1206,8 +1184,8 @@ body.modal-open .modal-window {
 }
 
 .modal-steps-toggle-btn:hover {
-    background: var(--clr-purple-glow);
-    border-color: var(--clr-purple);
+    background: var(--clr-gold-glow);
+    border-color: var(--clr-gold);
     transform: scale(1.05);
 }
 
@@ -1248,7 +1226,7 @@ body.modal-open .modal-window {
     margin: 0 0 15px 0;
     font-weight: 600;
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-gold-glow); /* Reduced glow */
+    text-shadow: 0 0 10px var(--clr-gold-glow);
 }
 
 .architectural-step .step-content {
@@ -1349,29 +1327,21 @@ body.modal-open .modal-window {
         margin-top: 1.5rem;
     }
 
-    #sphere-container {
-        order: 2;
-        position: relative;
-        height: 35vh;
-        width: 100%;
-        margin-top: 20px;
-    }
 
     /* --- About Me Section --- */
     .about-container {
-        grid-template-columns: 1fr;
         display: flex;
         flex-direction: column;
-        text-align: center;
-        gap: 20px;
+        align-items: center;
+        gap: 30px;
     }
 
     .about-right {
-        text-align: center;
+        text-align: center; /* Ensure content within this div is also centered */
     }
 
     .about-photo-container {
-        margin: 0 auto 20px;
+        margin: 0 auto 20px; /* Center the profile picture */
         width: 200px;
         height: 200px;
     }
@@ -1381,8 +1351,8 @@ body.modal-open .modal-window {
     }
 
     .projects-grid {
-        display: flex;
-        flex-direction: column;
+        /* The grid will now correctly wrap into a single column automatically */
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 

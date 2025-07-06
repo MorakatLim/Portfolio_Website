@@ -204,9 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <div class="modal-architecture-content">
                     <div class="modal-featured-image-container">
-                        <img src="Projects/Architecture/arch_showcase_1.webp"
-                             data-full-src="Projects/Architecture/arch_showcase_1.webp"
-                             alt="Featured architectural project"
+                        <img src="Projects/Architecture/arch_showcase_1.webp" 
+                             data-full-src="Projects/Architecture/arch_showcase_1.webp" 
+                             alt="Featured architectural project" 
                              class="modal-featured-image">
                     </div>
                     <div class="architecture-project-details">
@@ -215,9 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="architecture-philosophy">
                         <h4>Design Philosophy</h4>
                         <p>
-                            My design philosophy centers on human-centric and sustainable design.
-                            I believe that buildings should not only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated
-                            with their surroundings.
+                            My design philosophy centers on human-centric and sustainable design. 
+                            I believe that buildings should not only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated with their surroundings.
                         </p>
                     </div>
                     <div class="skills-container">
@@ -603,12 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 navItems.forEach((item, index) => {
                     item.classList.toggle('nav-active', index === activeIndex);
                 });
-
-                // Initialize particles only when the hero section becomes visible
-                if (targetSection.id === 'hero' && !particlesInitialized.hero) {
-                    initializeCosmicParticles();
-                    particlesInitialized.hero = true;
-                }
             } else {
                 entry.target.classList.remove('active');
             }
@@ -618,215 +611,298 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     sections.forEach(section => observer.observe(section));
 
-
     // ===================================================================
-    // === PARTICLE.JS INITIALIZATION ====================================
+    // === 3D TILT EFFECT FOR CARDS ======================================
     // ===================================================================
 
-    function initializeCosmicParticles() {
-        if (typeof particlesJS === 'undefined') return;
+    const tiltableCards = document.querySelectorAll('.project-box, .engineering-project-card, .architecture-project-card');
 
-        // Background particles (more numerous, smaller, slower)
-        particlesJS('particles-js-cosmic-bg', {
-            particles: {
-                number: { value: 60 },
-                color: { value: "#ffffff" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 1, random: true },
-                move: { enable: true, speed: 0.4 }
+    tiltableCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // Mouse X position inside the card
+            const y = e.clientY - rect.top;  // Mouse Y position inside the card
+
+            const { width, height } = rect;
+            const rotateX = (y / height - 0.5) * -15; // Max rotation 7.5deg
+            const rotateY = (x / width - 0.5) * 15;   // Max rotation 7.5deg
+
+            // Apply the 3D tilt and a slight scale effect
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            // Reset the card's transform on mouse leave
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+    // ===================================================================
+    // === SVG ICON ANIMATIONS ===========================================
+    // ===================================================================
+
+    const iconGrid = document.querySelector('.projects-grid');
+    if (iconGrid && typeof Vivus !== 'undefined') {
+        // A simple array to hold the Vivus instances
+        const vivusInstances = [];
+
+        // The IDs of the icons we want to animate
+        const iconIds = [
+            'icon-engineering', 'icon-architecture', 'icon-realestate',
+            'icon-raytheon', 'icon-travels', 'icon-photoshop'
+        ];
+
+        // Initialize Vivus for each icon
+        iconIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                vivusInstances.push(new Vivus(id, {
+                    duration: 120,
+                    start: 'manual',
+                    type: 'oneByOne'
+                }));
             }
         });
 
-        // Foreground particles (fewer, larger, faster)
-        particlesJS('particles-js-cosmic-fg', {
-            particles: {
-                number: { value: 20 },
-                color: { value: "#ffffff" },
-                size: { value: 2.5, random: true },
-                line_linked: { enable: false },
-                move: { enable: true, speed: 1 }
-            },
-            interactivity: { events: { onhover: { enable: false } } }
+        // This observer will watch the icon grid
+        const iconObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If the grid is in view...
+                if (entry.isIntersecting) {
+                    // ...play all the animations.
+                    vivusInstances.forEach(instance => instance.play());
+                } else {
+                    // ...otherwise, reset them so they are ready to play again.
+                    vivusInstances.forEach(instance => instance.reset());
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% of the grid is visible
         });
+
+        // Start observing the icon grid
+        iconObserver.observe(iconGrid);
     }
 
-
     // ===================================================================
-    // === THREE.JS URBAN FABRIC INITIALIZATION ==========================
+    // === TEXT DECODING EFFECT ==========================================
     // ===================================================================
 
-    if (document.getElementById('sphere-container')) {
-        const container = document.getElementById('sphere-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const decodeElements = document.querySelectorAll('.decode-text');
+    const chars = "!<>-_\\/[]{}—=+*^?#"; // Characters used for scrambling
 
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(renderer.domElement);
+    // This function holds a single animation interval.
+    // We need to keep track of it to stop it if the user scrolls away mid-animation.
+    let textAnimationInterval = null;
 
-        camera.position.set(0, 5, 20); // Adjust camera position for a better view of the city
-        camera.lookAt(0, 0, 0);
+    const decodeTextEffect = (element) => {
+        const originalText = element.dataset.originalText;
+        let iteration = 0;
 
-        // --- Lighting ---
-        const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
-        scene.add(ambientLight);
+        // Clear any existing animation before starting a new one
+        clearInterval(textAnimationInterval);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(10, 15, 10);
-        scene.add(directionalLight);
+        textAnimationInterval = setInterval(() => {
+            element.textContent = originalText.split("")
+                .map((letter, index) => {
+                    if (index < iteration) {
+                        return originalText[index];
+                    }
+                    return chars[Math.floor(Math.random() * chars.length)];
+                })
+                .join("");
 
-        // --- Main Group ---
-        const urbanFabricGroup = new THREE.Group();
-        scene.add(urbanFabricGroup);
+            if (iteration >= originalText.length) {
+                clearInterval(textAnimationInterval);
+            }
 
-        // --- Ground Grid (Real Estate & Planning) ---
-        const gridSize = 30;
-        const gridDivisions = 30;
-        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x9370DB, 0x4B0082); // Purple and Darker Purple
-        gridHelper.material.opacity = 0.4;
-        gridHelper.material.transparent = true;
-        urbanFabricGroup.add(gridHelper);
+            iteration += 1 / 3;
+        }, 30);
+    };
 
-        // --- Abstract Buildings (Architecture & Design) ---
-        const buildings = [];
-        const buildingMaterial = new THREE.MeshStandardMaterial({
-            color: 0x8A2BE2, // Blue-Violet
-            transparent: true,
-            opacity: 0.6,
-            roughness: 0.5,
-            metalness: 0.8,
-            emissive: 0x9370DB, // Purple glow
-            emissiveIntensity: 0.2
+    if (decodeElements.length > 0) {
+        decodeElements.forEach(el => {
+            // Store the original text so we can always access it
+            el.dataset.originalText = el.textContent;
         });
 
-        const numBuildings = 50;
-        for (let i = 0; i < numBuildings; i++) {
-            const geometry = Math.random() > 0.5 ? new THREE.BoxGeometry(1, Math.random() * 5 + 1, 1) : new THREE.CylinderGeometry(0.5, 0.5, Math.random() * 5 + 1, 8);
-            const building = new THREE.Mesh(geometry, buildingMaterial);
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If the title is intersecting (in view)
+                if (entry.isIntersecting) {
+                    decodeTextEffect(entry.target);
+                } else {
+                    // If it's not in view, reset its text to the original state
+                    // This prepares it for the next time it scrolls into view.
+                    entry.target.textContent = entry.target.dataset.originalText;
+                    // Optional: You could also set it to empty if you want it to be blank when off-screen
+                    // entry.target.textContent = ''; 
+                }
+            });
+        }, {
+            threshold: 0.8 // Trigger when 80% of the element is visible
+        });
 
-            building.position.x = (Math.random() - 0.5) * gridSize * 0.8;
-            building.position.z = (Math.random() - 0.5) * gridSize * 0.8;
-            building.position.y = building.geometry.parameters.height / 2; // Position correctly on the grid
+        // Observe each of the elements with the .decode-text class
+        decodeElements.forEach(el => textObserver.observe(el));
+    }
+    // ===================================================================
+    // === ARCHITECTURE TITLE ANIMATION ==================================
+    // ===================================================================
 
-            buildings.push(building);
-            urbanFabricGroup.add(building);
+    const architectTitle = document.getElementById('architect-title-svg');
+
+    if (architectTitle) {
+        const architectTitleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If the SVG title is intersecting (in view)
+                if (entry.isIntersecting) {
+                    // Add the .animate class to trigger the CSS keyframes
+                    entry.target.classList.add('animate');
+                } else {
+                    // If it's not in view, remove the class.
+                    // This resets the animation so it can play again.
+                    entry.target.classList.remove('animate');
+                }
+            });
+        }, {
+            threshold: 0.8 // Trigger when 80% of the title is visible
+        });
+
+        architectTitleObserver.observe(architectTitle);
+    }
+    // ===================================================================
+    // === DIGITAL BLUEPRINT BACKGROUND ==================================
+    // ===================================================================
+
+    const blueprintCanvas = document.getElementById('blueprint-background');
+    if (blueprintCanvas) {
+        const ctx = blueprintCanvas.getContext('2d');
+        let lines = [];
+        const gridSize = 40;
+
+        // --- Setup and Resize ---
+        const setupCanvas = () => {
+            blueprintCanvas.width = window.innerWidth;
+            blueprintCanvas.height = window.innerHeight;
+        };
+
+        window.addEventListener('resize', setupCanvas);
+
+        // --- Grid Drawing ---
+        const drawGrid = () => {
+            ctx.clearRect(0, 0, blueprintCanvas.width, blueprintCanvas.height);
+        };
+
+        // --- Line Animation ---
+        class Line {
+            constructor() {
+                this.path = [];
+                this.life = 150 + Math.random() * 100;
+                this.progress = 0;
+                this.totalLength = 0;
+
+                let currentX = Math.floor(Math.random() * (blueprintCanvas.width / gridSize)) * gridSize;
+                let currentY = Math.floor(Math.random() * (blueprintCanvas.height / gridSize)) * gridSize;
+                this.path.push({ x: currentX, y: currentY });
+
+                const segmentCount = 6 + Math.floor(Math.random() * 5);
+                let direction = Math.random() > 0.5 ? 'h' : 'v';
+
+                for (let i = 0; i < segmentCount; i++) {
+                    let nextX, nextY;
+                    if (direction === 'h') {
+                        nextX = Math.floor(Math.random() * (blueprintCanvas.width / gridSize)) * gridSize;
+                        nextY = currentY;
+                    } else {
+                        nextX = currentX;
+                        nextY = Math.floor(Math.random() * (blueprintCanvas.height / gridSize)) * gridSize;
+                    }
+                    
+                    this.totalLength += Math.abs(nextX - currentX) + Math.abs(nextY - currentY);
+                    this.path.push({ x: nextX, y: nextY });
+                    
+                    currentX = nextX;
+                    currentY = nextY;
+                    
+                    direction = (direction === 'h') ? 'v' : 'h';
+                }
+            }
+
+            update() {
+                this.life--;
+                if (this.progress < this.totalLength) {
+                    this.progress += 2;
+                }
+            }
+
+            draw() {
+                const fade = Math.max(0, this.life / 100);
+                let progressLeft = this.progress;
+                
+                let headX = this.path[0].x;
+                let headY = this.path[0].y;
+
+                ctx.beginPath();
+
+                for (let i = 0; i < this.path.length - 1; i++) {
+                    if (progressLeft <= 0) break;
+
+                    const p1 = this.path[i];
+                    const p2 = this.path[i+1];
+                    const segmentLength = Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
+                    const drawFraction = Math.min(1, progressLeft / segmentLength);
+                    
+                    const endX = p1.x + (p2.x - p1.x) * drawFraction;
+                    const endY = p1.y + (p2.y - p1.y) * drawFraction;
+                    
+                    // --- LIGHTER LINE GRADIENT ---
+                    const lineGradient = ctx.createLinearGradient(p1.x, p1.y, endX, endY);
+                    lineGradient.addColorStop(0, `rgba(255, 255, 255, ${2.0 * fade})`); // Reduced from 0.7
+                    lineGradient.addColorStop(1, `rgba(255, 215, 0, ${2.0 * fade})`);  // Reduced from 1.0
+                    ctx.strokeStyle = lineGradient;
+                    ctx.lineWidth = 1; // Reduced from 1.5
+
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(endX, endY);
+
+                    headX = endX;
+                    headY = endY;
+
+                    progressLeft -= segmentLength;
+                }
+                ctx.stroke();
+
+                // --- LIGHTER GLOW ---
+                const glow = ctx.createRadialGradient(headX, headY, 0, headX, headY, 20);
+                glow.addColorStop(0, `rgba(255, 255, 255, ${1.0 * fade})`); // Reduced from 0.2
+                glow.addColorStop(0.3, `rgba(255, 215, 0, ${0.1 * fade})`);// Reduced from 0.1
+                glow.addColorStop(1, `rgba(255, 215, 0, 0)`);
+                
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(headX, headY, 20, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        // --- Interconnecting Energy/Data Flow (Engineering) ---
-        const connections = [];
-        const connectionMaterial = new THREE.LineBasicMaterial({
-            color: 0xFFD700, // Gold
-            linewidth: 2
-        });
+        const animate = () => {
+            drawGrid();
 
-        for (let i = 0; i < numBuildings / 2; i++) {
-            const buildingA = buildings[Math.floor(Math.random() * buildings.length)];
-            const buildingB = buildings[Math.floor(Math.random() * buildings.length)];
+            if (lines.length < 15 && Math.random() < 0.05) {
+                lines.push(new Line());
+            }
 
-            const points = [];
-            points.push(buildingA.position.clone());
-            points.push(new THREE.Vector3((buildingA.position.x + buildingB.position.x) / 2, Math.max(buildingA.position.y, buildingB.position.y) + 2, (buildingA.position.z + buildingB.position.z) / 2));
-            points.push(buildingB.position.clone());
+            lines = lines.filter(line => {
+                line.update();
+                line.draw();
+                return line.life > 0;
+            });
 
-            const curve = new THREE.CatmullRomCurve3(points);
-            const lineGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(50));
-            const line = new THREE.Line(lineGeometry, connectionMaterial);
-            connections.push(line);
-            urbanFabricGroup.add(line);
-        }
-
-        // --- Mouse Drag Controls ---
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            container.style.cursor = 'grabbing';
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            container.style.cursor = 'grab';
-        });
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaMove = {
-                x: e.clientX - previousMousePosition.x,
-                y: e.clientY - previousMousePosition.y
-            };
-            const rotateAngleX = deltaMove.y * 0.005;
-            const rotateAngleY = deltaMove.x * 0.005;
-            urbanFabricGroup.rotation.x += rotateAngleX;
-            urbanFabricGroup.rotation.y += rotateAngleY;
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        // --- Animation Loop ---
-        function animate() {
             requestAnimationFrame(animate);
+        };
 
-            // Constant rotation when not dragging
-            if (!isDragging) {
-                urbanFabricGroup.rotation.y += 0.0005;
-            }
-
-            // Animate buildings (simple pulsation/scaling)
-            const time = Date.now() * 0.001;
-            buildings.forEach((building, index) => {
-                building.scale.y = 1 + Math.sin(time + index * 0.5) * 0.1;
-                building.position.y = (building.geometry.parameters.height / 2) * building.scale.y;
-            });
-
-            // Animate connections (pulsating color or movement if more complex shader)
-            // For simplicity, we'll just make them glow a bit
-            connections.forEach(line => {
-                line.material.color.setHSL(0.15 + Math.sin(time * 0.5) * 0.05, 1, 0.7 + Math.cos(time * 0.5) * 0.1); // subtle hue and lightness shift
-            });
-
-
-            renderer.render(scene, camera);
-        }
+        // --- Initialize ---
+        setupCanvas();
         animate();
-
-        // --- Responsive Resizing ---
-        window.addEventListener('resize', () => {
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-
-            // Adjust scale for different screen sizes
-            if (window.innerWidth <= 900) {
-                urbanFabricGroup.scale.set(0.6, 0.6, 0.6);
-                camera.position.set(0, 5, 30); // Move camera back for smaller scale
-            } else {
-                urbanFabricGroup.scale.set(1, 1, 1);
-                camera.position.set(0, 5, 20); // Default camera position
-            }
-            camera.lookAt(0, 0, 0); // Ensure camera always looks at the center
-        });
-
-        // Trigger resize on load to set the initial state
-        window.dispatchEvent(new Event('resize'));
-    }
-
-    /**
-     * Helper function (kept from original, but not directly used in new scene)
-     * Generates a canvas texture for a glowing sphere.
-     * @returns {THREE.CanvasTexture} - The generated texture.
-    **/
-    function createGlowTexture() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 128;
-        canvas.height = 128;
-        const context = canvas.getContext('2d');
-        const gradient = context.createRadialGradient(
-            canvas.width / 2, canvas.height / 2, 0,
-            canvas.width / 2, canvas.height / 2, canvas.width / 2
-        );
-        gradient.addColorStop(0.2, 'rgba(255, 220, 130, 1.0)');
-        gradient.addColorStop(1.0, 'rgba(255, 220, 130, 0)');
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        return new THREE.CanvasTexture(canvas);
     }
 });
