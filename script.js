@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // State for the image lightbox gallery
     let currentGalleryImages = [];
     let currentImageIndex = 0;
+    // New variable to hold active icon animation instances
+    let activeVivusInstances = [];
 
     // Get the main body element for later use (e.g., locking scroll)
     const body = document.body;
@@ -223,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h4>Tools & Technologies</h4>
                         <div class="skills-icons">
                             <div class="skill-item">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <svg id="icon-skill-sketchup" class="animatable-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="3" y1="9" x2="21" y2="9"></line>
                                     <line x1="9" y1="21" x2="9" y2="9"></line>
@@ -231,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p>SketchUp</p>
                             </div>
                             <div class="skill-item">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <svg id="icon-skill-solidworks" class="animatable-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="3" y1="9" x2="21" y2="9"></line>
                                     <line x1="9" y1="21" x2="9" y2="9"></line>
@@ -239,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p>SolidWorks</p>
                             </div>
                             <div class="skill-item">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <svg id="icon-skill-ansys" class="animatable-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
@@ -285,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </p>
                     <div class="raytheon-projects-container">
                         <div class="raytheon-project">
-                            <svg class="raytheon-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <svg id="icon-raytheon-ltamds" class="raytheon-icon animatable-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2,10 L12,10 L12,20 L2,20 L2,10 Z"></path>
                                 <path d="M12,10 L22,10 L22,20 L12,20"></path>
                                 <path d="M2,10 L7,4 L17,4 L12,10"></path>
@@ -298,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <div class="raytheon-project">
-                            <svg class="raytheon-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <svg id="icon-raytheon-qwer" class="raytheon-icon animatable-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M12 2 L2 12 L12 22 L22 12 Z"></path>
                                 <path d="M2 12 L12 22"></path>
                                 <path d="M12 2 L12 22"></path>
@@ -425,6 +427,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Find and animate any Vivus-ready icons in the new modal content
+        if (typeof Vivus !== 'undefined') {
+            const iconsToAnimate = modalContentArea.querySelectorAll('.animatable-icon');
+            iconsToAnimate.forEach(icon => {
+                const instance = new Vivus(icon.id, {
+                    duration: 150,
+                    type: 'oneByOne'
+                });
+                activeVivusInstances.push(instance);
+            });
+        }
+
         body.classList.add('modal-open');
     }
 
@@ -432,6 +446,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Closes the main modal window and resets its state.
      */
     function closeModal() {
+        // Destroy any active Vivus instances to clean up
+        if (activeVivusInstances.length > 0) {
+            activeVivusInstances.forEach(instance => instance.destroy());
+            activeVivusInstances = []; // Clear the array
+        }
+
         body.classList.remove('modal-open');
         const modalWindow = modal.querySelector('.modal-window');
         // Reset any specific states on close
@@ -797,9 +817,11 @@ document.addEventListener('DOMContentLoaded', () => {
         class Line {
             constructor() {
                 this.path = [];
-                this.life = 150 + Math.random() * 100;
+                // The progress property now represents the position of the "head" of the light streak.
                 this.progress = 0;
                 this.totalLength = 0;
+                // This new property defines the visible length of the light streak.
+                this.tailLength = 250;
 
                 let currentX = Math.floor(Math.random() * (blueprintCanvas.width / gridSize)) * gridSize;
                 let currentY = Math.floor(Math.random() * (blueprintCanvas.height / gridSize)) * gridSize;
@@ -829,59 +851,64 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             update() {
-                this.life--;
-                if (this.progress < this.totalLength) {
-                    this.progress += 2;
-                }
+                // The progress now continuously increases to move the streak across the screen.
+                this.progress += 3; // Increased speed for a better effect
             }
 
             draw() {
-                const fade = Math.max(0, this.life / 100);
-                let progressLeft = this.progress;
-                
-                let headX = this.path[0].x;
-                let headY = this.path[0].y;
-
                 ctx.beginPath();
+                let cumulativeLength = 0;
+                const head = this.progress;
+                const tail = head - this.tailLength;
 
+                // Loop through each segment of the line's path
                 for (let i = 0; i < this.path.length - 1; i++) {
-                    if (progressLeft <= 0) break;
-
                     const p1 = this.path[i];
                     const p2 = this.path[i+1];
                     const segmentLength = Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
-                    const drawFraction = Math.min(1, progressLeft / segmentLength);
-                    
-                    const endX = p1.x + (p2.x - p1.x) * drawFraction;
-                    const endY = p1.y + (p2.y - p1.y) * drawFraction;
-                    
-                    // --- LIGHTER LINE GRADIENT ---
-                    const lineGradient = ctx.createLinearGradient(p1.x, p1.y, endX, endY);
-                    lineGradient.addColorStop(0, `rgba(255, 255, 255, ${2.0 * fade})`); // Reduced from 0.7
-                    lineGradient.addColorStop(1, `rgba(255, 215, 0, ${2.0 * fade})`);  // Reduced from 1.0
-                    ctx.strokeStyle = lineGradient;
-                    ctx.lineWidth = 1; // Reduced from 1.5
 
-                    ctx.moveTo(p1.x, p1.y);
-                    ctx.lineTo(endX, endY);
+                    const startOfSegmentDist = cumulativeLength;
+                    const endOfSegmentDist = cumulativeLength + segmentLength;
 
-                    headX = endX;
-                    headY = endY;
+                    // Determine the start and end of the visible portion of the light streak on this segment
+                    const visibleStartDist = Math.max(startOfSegmentDist, tail);
+                    const visibleEndDist = Math.min(endOfSegmentDist, head);
 
-                    progressLeft -= segmentLength;
+                    // If the streak is visible on this segment, draw it
+                    if (visibleStartDist < visibleEndDist) {
+                        const startFraction = (visibleStartDist - startOfSegmentDist) / segmentLength;
+                        const endFraction = (visibleEndDist - startOfSegmentDist) / segmentLength;
+
+                        const startPoint = {
+                            x: p1.x + (p2.x - p1.x) * startFraction,
+                            y: p1.y + (p2.y - p1.y) * startFraction
+                        };
+                        const endPoint = {
+                            x: p1.x + (p2.x - p1.x) * endFraction,
+                            y: p1.y + (p2.y - p1.y) * endFraction
+                        };
+
+                        // Create a gradient just for this visible piece
+                        const gradient = ctx.createLinearGradient(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+                        const color = '0, 191, 255'; // The "Blueprint Blue" color
+
+                        // Calculate opacity based on position within the tail
+                        const opacityAtStart = (visibleStartDist - tail) / this.tailLength;
+                        const opacityAtEnd = (visibleEndDist - tail) / this.tailLength;
+
+                        // The gradient creates the fade effect
+                        gradient.addColorStop(0, `rgba(${color}, ${opacityAtStart * 0.8})`);
+                        gradient.addColorStop(1, `rgba(${color}, ${opacityAtEnd * 0.8})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1.5;
+
+                        ctx.moveTo(startPoint.x, startPoint.y);
+                        ctx.lineTo(endPoint.x, endPoint.y);
+                    }
+                    cumulativeLength += segmentLength;
                 }
                 ctx.stroke();
-
-                // --- LIGHTER GLOW ---
-                const glow = ctx.createRadialGradient(headX, headY, 0, headX, headY, 20);
-                glow.addColorStop(0, `rgba(255, 255, 255, ${1.0 * fade})`); // Reduced from 0.2
-                glow.addColorStop(0.3, `rgba(255, 215, 0, ${0.1 * fade})`);// Reduced from 0.1
-                glow.addColorStop(1, `rgba(255, 215, 0, 0)`);
-                
-                ctx.fillStyle = glow;
-                ctx.beginPath();
-                ctx.arc(headX, headY, 20, 0, Math.PI * 2);
-                ctx.fill();
             }
         }
 
@@ -895,7 +922,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lines = lines.filter(line => {
                 line.update();
                 line.draw();
-                return line.life > 0;
+                // A line is removed once its tail has passed the end of the path.
+                return (line.progress - line.tailLength) < line.totalLength;
             });
 
             requestAnimationFrame(animate);
