@@ -606,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.5 // Trigger when 50% of the section is visible
+        threshold: 0.1 // Trigger when 10% of the section is visible
     };
 
     let particlesInitialized = { hero: false };
