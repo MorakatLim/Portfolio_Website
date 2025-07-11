@@ -567,8 +567,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const opacityAtStart = (visibleStartDist - tail) / this.tailLength;
                         const opacityAtEnd = (visibleEndDist - tail) / this.tailLength;
 
-                        gradient.addColorStop(0, `rgba(${color}, ${opacityAtStart * 0.8})`);
-                        gradient.addColorStop(1, `rgba(${color}, ${opacityAtEnd * 0.8})`);
+                        gradient.addColorStop(0, `rgba(${color}, ${opacityAtStart * 1.5})`);
+                        gradient.addColorStop(1, `rgba(${color}, ${opacityAtEnd * 1.5})`);
                         ctx.strokeStyle = gradient;
                         ctx.lineWidth = 1.5;
                         ctx.moveTo(startPoint.x, startPoint.y);
