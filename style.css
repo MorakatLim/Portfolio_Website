@@ -1166,6 +1166,9 @@ body.modal-open .modal-window {
     .about-left-col h1, .about-left-col .about-bio {
         text-align: center;
     }
+    .about-right-col .projects-grid {
+        grid-template-columns: 1fr;
+    }
     
     .about-grid,
     .projects-grid,
