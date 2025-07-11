@@ -1,47 +1,29 @@
-// Wait for the entire HTML document to be loaded and parsed before running the script
+// Wait for the DOM to be fully loaded before running scripts
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ===================================================================
-    // === GLOBAL VARIABLES & STATE ======================================
-    // ===================================================================
-
-    // State for the image lightbox gallery
+    // --- Global State --- //
     let currentGalleryImages = [];
     let currentImageIndex = 0;
-    // New variable to hold active icon animation instances
     let activeVivusInstances = [];
 
-    // Get the main body element for later use (e.g., locking scroll)
     const body = document.body;
-
-    // Get all main sections for intersection observer
     const sections = document.querySelectorAll('main#page-content section');
 
-
-    // ===================================================================
-    // === INITIAL PAGE LOAD ANIMATION ===================================
-    // ===================================================================
-
+    // --- Initial Page Load Animation --- //
     const heroSection = document.getElementById('hero');
     setTimeout(() => {
         heroSection.classList.add('active');
     }, 100);
 
-
-    // ===================================================================
-    // === DYNAMIC TOP NAVIGATION ========================================
-    // ===================================================================
-
+    // --- Dynamic Top Navigation --- //
     const topNavList = document.querySelector('#top-nav .nav-list');
     const navItems = [];
     sections.forEach((section) => {
         const sectionId = section.id;
-        // Create a user-friendly name from the section's data-theme attribute
         let sectionName = section.dataset.theme.replace(/-/g, ' ');
         sectionName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
-        if (sectionId === 'hero') sectionName = 'Home'; // Override for hero section
+        if (sectionId === 'hero') sectionName = 'Home';
 
-        // Create and append the navigation list item
         const listItem = document.createElement('li');
         const link = document.createElement('a');
         link.href = `#${sectionId}`;
@@ -51,28 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
         navItems.push(listItem);
     });
 
-
-    // ===================================================================
-    // === MODAL CONTENT & LOGIC =========================================
-    // ===================================================================
+    // --- Modal Content & Logic --- //
 
     /**
-     * Generates the HTML for the 7 steps of architectural design for a modal.
-     * @param {string} title - The main title for the modal content.
+     * Generates HTML for the 7 steps of architectural design.
+     * @param {string} title - The main title for the modal.
      * @param {string} summary - A short summary of the project.
      * @returns {string} - The complete HTML string for the modal content.
      */
     function generateArchitecturalStepsHTML(title, summary) {
         const steps = [
-            "Schematic Design",
-            "Design Development",
-            "Construction Documents",
-            "Bidding and Negotiation",
-            "Construction Administration",
-            "Substantial Completion",
+            "Schematic Design", "Design Development", "Construction Documents",
+            "Bidding and Negotiation", "Construction Administration", "Substantial Completion",
             "Final Project Closeout"
         ];
-
         const descriptions = [
             "This initial phase involves understanding the client's needs, goals, and budget. We conduct site analysis and develop preliminary sketches and concepts to establish the project's overall vision.",
             "The schematic design is refined into a more detailed plan. This includes finalizing floor plans, elevations, and materials, and integrating structural, mechanical, and electrical systems.",
@@ -91,8 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="toggle-text">Show Design Steps</span>
                     <svg class="toggle-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                 </button>
-                <div class="architectural-steps-container">
-        `;
+                <div class="architectural-steps-container">`;
 
         steps.forEach((step, index) => {
             modalHTML += `
@@ -106,18 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p>${descriptions[index]}</p>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
-        modalHTML += `
-                </div>
-            </div>
-        `;
+        modalHTML += `</div></div>`;
         return modalHTML;
     }
 
-    // Configuration for travel photo galleries. Maps a category name to a path and image count.
     const travelImageConfig = {
         'Cloudcroft': { path: "Projects/Travels/New_Mexico/Cloudcroft/images_webp/", count: 7 },
         'Pistachio Land': { path: "Projects/Travels/New_Mexico/Pistachio_Land/images_webp/", count: 3 },
@@ -126,18 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'White Sands National Park': { path: "Projects/Travels/New_Mexico/White_Sands/images_webp/", count: 24 }
     };
 
-    /**
-     * Generates a structured object of travel categories and their image paths.
-     * @param {object} config - The configuration object for travel images.
-     * @returns {object} - A structured object with categories and image paths.
-     */
     function generateTravelCategories(config) {
         const categories = {};
         for (const categoryName in config) {
             const categoryData = config[categoryName];
             categories[categoryName] = [];
             for (let i = 0; i < categoryData.count; i++) {
-                // Generates filenames 'a.webp', 'b.webp', etc., based on image count.
                 const fileName = String.fromCharCode(97 + i) + '.webp';
                 const fullPath = categoryData.path + fileName;
                 categories[categoryName].push({
@@ -149,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return categories;
     }
 
-    // Main object holding all the content for the modals
     const modalContent = {
         profile: {
             html: `
@@ -193,15 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>`
         },
-        engineeringProject1: {
-            html: `<h2>Placeholder Project One</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
-        },
-        engineeringProject2: {
-            html: `<h2>Placeholder Project Two</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
-        },
-        engineeringProject3: {
-            html: `<h2>Placeholder Project Three</h2><p>Details for this project are coming soon. This section will feature in-depth information about the design process, technical specifications, and outcomes.</p>`
-        },
+        engineeringProject1: { html: `<h2>Placeholder Project One</h2><p>Details for this project are coming soon.</p>` },
+        engineeringProject2: { html: `<h2>Placeholder Project Two</h2><p>Details for this project are coming soon.</p>` },
+        engineeringProject3: { html: `<h2>Placeholder Project Three</h2><p>Details for this project are coming soon.</p>` },
         architecture: {
             html: `
                 <div class="modal-architecture-content">
@@ -255,61 +210,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>`
         },
-        dreamHome: {
-            html: generateArchitecturalStepsHTML(
-                "Dream Home Design Process",
-                "This project is a personal and ongoing exploration into creating a modern, sustainable living space. The design focuses on harmonizing with its natural surroundings, maximizing natural light, and integrating smart-home technology for a futuristic yet comfortable home."
-            )
-        },
-        currentHome: {
-            html: generateArchitecturalStepsHTML(
-                "Current Home Design Process",
-                "This conceptual exercise applies architectural principles to my current residence. The goal is to reimagine the space for better optimization, multi-functionality, and an enhanced quality of daily life, proving that good design can transform any environment."
-            )
-        },
-        firmDesign: {
-            html: generateArchitecturalStepsHTML(
-                "E.A.R. Firm Design Process",
-                "This is a conceptual design for the headquarters of an innovative Engineering, Architecture, and Real Estate (E.A.R.) firm. The building aims to reflect a spirit of collaboration, transparency, and forward-thinking by integrating all three disciplines under one roof."
-            )
-        },
+        dreamHome: { html: generateArchitecturalStepsHTML("Dream Home Design Process", "A personal exploration into creating a modern, sustainable living space.") },
+        currentHome: { html: generateArchitecturalStepsHTML("Current Home Design Process", "Reimagining a current residence for better spatial optimization and quality of life.") },
+        firmDesign: { html: generateArchitecturalStepsHTML("E.A.R. Firm Design Process", "A conceptual design for an innovative Engineering, Architecture, and Real Estate firm headquarters.") },
         realestate: {
             title: 'Real Estate Ventures',
-            text: 'I have a passion in real estate. This is directly tied to my interests and knowledge in architecture design. I hope to use my engineering and architectural design background to design and build my own home in the very near future! Check out some of my guides and findings below!',
-            pdfSrc: 'Projects/Real_Estate/MA_Real_Estate_Salesperson_Guide_Master_Edition.pdf',
-            expandedText: 'TBD'
+            text: 'I have a passion in real estate, which directly ties to my interests in architecture. I hope to use my background to design and build my own home in the near future! Check out some of my guides and findings below!',
+            pdfSrc: 'Projects/Real_Estate/MA_Real_Estate_Salesperson_Guide_Master_Edition.pdf'
         },
         raytheon: {
             html: `
                 <div class="modal-raytheon-content">
-                    <p class="raytheon-description">
-                        I have had the awesome opportunity to work at Raytheon for over two years as a Systems Engineer and I have learned a lot!
-                    </p>
+                    <p class="raytheon-description">I have had the awesome opportunity to work at Raytheon for over two years as a Systems Engineer and I have learned a lot!</p>
                     <div class="raytheon-projects-container">
                         <div class="raytheon-project">
                             <svg id="icon-raytheon-ltamds" class="raytheon-icon animatable-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2,10 L12,10 L12,20 L2,20 L2,10 Z"></path>
-                                <path d="M12,10 L22,10 L22,20 L12,20"></path>
-                                <path d="M2,10 L7,4 L17,4 L12,10"></path>
-                                <path d="M17,4 L22,10"></path>
-                                <circle cx="5" cy="21" r="1"></circle><circle cx="15" cy="21" r="1"></circle>
+                                <path d="M2,10 L12,10 L12,20 L2,20 L2,10 Z"></path><path d="M12,10 L22,10 L22,20 L12,20"></path><path d="M2,10 L7,4 L17,4 L12,10"></path><path d="M17,4 L22,10"></path><circle cx="5" cy="21" r="1"></circle><circle cx="15" cy="21" r="1"></circle>
                             </svg>
-                            <div class="raytheon-subtitles">
-                                <p class="subtitle-role">LTAMDS / Systems Engineer</p>
-                                <p class="subtitle-years">2023 - 2025 / 2 Years</p>
-                            </div>
+                            <p class="subtitle-role">LTAMDS / Systems Engineer</p>
+                            <p class="subtitle-years">2023 - 2025 / 2 Years</p>
                         </div>
                         <div class="raytheon-project">
                             <svg id="icon-raytheon-qwer" class="raytheon-icon animatable-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2 L2 12 L12 22 L22 12 Z"></path>
-                                <path d="M2 12 L12 22"></path>
-                                <path d="M12 2 L12 22"></path>
-                                <path d="M22 12 L12 22"></path>
+                                <path d="M12 2 L2 12 L12 22 L22 12 Z"></path><path d="M2 12 L12 22"></path><path d="M12 2 L12 22"></path><path d="M22 12 L12 22"></path>
                             </svg>
-                            <div class="raytheon-subtitles">
-                                <p class="subtitle-role">QWER / Systems Engineer</p>
-                                <p class="subtitle-years">2025 - Current/ 2 Months</p>
-                            </div>
+                            <p class="subtitle-role">QWER / Systems Engineer</p>
+                            <p class="subtitle-years">2025 - Current/ 2 Months</p>
                         </div>
                     </div>
                 </div>`
@@ -317,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         travels: {
             title: 'Journeys and Inspirations',
             text: 'Exploring different cultures has profoundly influenced my perspective, creativity, and problem-solving skills. Below is a collection of moments from my travels.',
-            categories: generateTravelCategories(travelImageConfig) // Use the generator function
+            categories: generateTravelCategories(travelImageConfig)
         },
         photoshop: {
             title: 'Digital Artistry with Photoshop',
@@ -325,27 +251,20 @@ document.addEventListener('DOMContentLoaded', () => {
             featuredImage: {
                 thumb: 'Projects/Photoshop/Detoxpvm.jpg',
                 full: 'Projects/Photoshop/Detoxpvm.jpg',
-            },
-            expandedText: 'I have been creative designing and programming ever since I was in highschool! Lots of designs tucked away, waiting to be showcased!'
+            }
         }
     };
 
-    // --- Modal DOM Elements ---
     const modal = document.getElementById('project-modal');
     const modalContentArea = modal.querySelector('.modal-content-area');
     const closeModalBtn = modal.querySelector('.modal-close-btn');
 
-    // --- Lightbox DOM Elements ---
     const lightboxOverlay = document.getElementById('lightbox-overlay');
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxCloseBtn = document.querySelector('.lightbox-close');
     const lightboxPrevBtn = document.querySelector('.lightbox-prev');
     const lightboxNextBtn = document.querySelector('.lightbox-next');
 
-    /**
-     * Opens the modal window and populates it with content based on the provided key.
-     * @param {string} key - The key corresponding to an entry in the modalContent object.
-     */
     function openModal(key) {
         const content = modalContent[key];
         if (!content) return;
@@ -353,221 +272,119 @@ document.addEventListener('DOMContentLoaded', () => {
         let modalHTML = '';
 
         if (content.html) {
-            // Use pre-defined HTML if available
             modalHTML = content.html;
         } else {
-            // Build HTML from other content properties
             if (content.featuredImage) {
                 modalHTML += `
                     <div class="modal-featured-image-container">
-                        <img src="${content.featuredImage.thumb}"
-                             data-full-src="${content.featuredImage.full}"
-                             class="modal-featured-image"
-                             alt="${content.title}">
+                        <img src="${content.featuredImage.thumb}" data-full-src="${content.featuredImage.full}" class="modal-featured-image" alt="${content.title}">
                     </div>`;
             }
-
             modalHTML += `<h2>${content.title}</h2><p>${content.text}</p>`;
 
             if (key === 'travels' && content.categories) {
                 for (const category in content.categories) {
-                    modalHTML += `<h3 class="gallery-category-title">${category}</h3>`;
-                    let galleryHTML = '<div class="modal-gallery-container">';
+                    modalHTML += `<h3 class="gallery-category-title">${category}</h3><div class="modal-gallery-container">`;
                     content.categories[category].forEach(image => {
-                        galleryHTML += `<img src="${image.thumb}" data-full-src="${image.full}" alt="Travel photo from ${category}">`;
+                        modalHTML += `<img src="${image.thumb}" data-full-src="${image.full}" alt="Travel photo from ${category}">`;
                     });
-                    galleryHTML += '</div>';
-                    modalHTML += galleryHTML;
+                    modalHTML += '</div>';
                 }
             } else if (content.pdfSrc) {
-                modalHTML += `
-                    <div class="pdf-container">
-                        <iframe src="${content.pdfSrc}"></iframe>
-                    </div>`;
-            } else if (content.expandedText) {
-                modalHTML += `
-                    <div class="modal-expandable-content">
-                        <p>${content.expandedText}</p>
-                    </div>
-                    <button class="modal-expand-btn" aria-label="Expand content" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 5v14M19 12l-7 7-7-7" />
-                        </svg>
-                    </button>`;
+                modalHTML += `<div class="pdf-container"><iframe src="${content.pdfSrc}"></iframe></div>`;
             }
         }
 
         modalContentArea.innerHTML = modalHTML;
-        // Add the 'steps-collapsed' class by default to modals that have the toggle button
         const modalWindow = modal.querySelector('.modal-window');
         if (modalContentArea.querySelector('.modal-steps-toggle-btn')) {
             modalWindow.classList.add('steps-collapsed');
         }
 
-
-        // Add event listener for the expand button
-        const expandBtn = modalContentArea.querySelector('.modal-expand-btn');
-        if (expandBtn) {
-            expandBtn.addEventListener('click', () => {
-                expandBtn.closest('.modal-window').classList.toggle('expanded');
-                const isExpanded = expandBtn.closest('.modal-window').classList.contains('expanded');
-                expandBtn.setAttribute('aria-expanded', isExpanded);
-            });
-        }
-
-        // Add event listener for the new steps toggle button
         const stepsToggleBtn = modalContentArea.querySelector('.modal-steps-toggle-btn');
         if (stepsToggleBtn) {
             stepsToggleBtn.addEventListener('click', () => {
-                const modalWindow = stepsToggleBtn.closest('.modal-window');
                 const isCollapsed = modalWindow.classList.toggle('steps-collapsed');
                 stepsToggleBtn.setAttribute('aria-expanded', !isCollapsed);
-                const btnText = stepsToggleBtn.querySelector('.toggle-text');
-                btnText.textContent = isCollapsed ? 'Show Design Steps' : 'Hide Design Steps';
+                stepsToggleBtn.querySelector('.toggle-text').textContent = isCollapsed ? 'Show Design Steps' : 'Hide Design Steps';
             });
         }
 
-        // Find and animate any Vivus-ready icons in the new modal content
         if (typeof Vivus !== 'undefined') {
             const iconsToAnimate = modalContentArea.querySelectorAll('.animatable-icon');
             iconsToAnimate.forEach(icon => {
-                const instance = new Vivus(icon.id, {
-                    duration: 150,
-                    type: 'oneByOne'
-                });
-                activeVivusInstances.push(instance);
+                activeVivusInstances.push(new Vivus(icon.id, { duration: 150, type: 'oneByOne' }));
             });
         }
 
         body.classList.add('modal-open');
     }
 
-    /**
-     * Closes the main modal window and resets its state.
-     */
     function closeModal() {
-        // Destroy any active Vivus instances to clean up
         if (activeVivusInstances.length > 0) {
             activeVivusInstances.forEach(instance => instance.destroy());
-            activeVivusInstances = []; // Clear the array
+            activeVivusInstances = [];
         }
-
         body.classList.remove('modal-open');
-        const modalWindow = modal.querySelector('.modal-window');
-        // Reset any specific states on close
-        if (modalWindow.classList.contains('expanded')) {
-            modalWindow.classList.remove('expanded');
-        }
-        if (modalWindow.classList.contains('steps-collapsed')) {
-            modalWindow.classList.remove('steps-collapsed');
-        }
+        modal.querySelector('.modal-window').classList.remove('steps-collapsed');
     }
 
-
-    // ===================================================================
-    // === LIGHTBOX LOGIC ================================================
-    // ===================================================================
-
-    /**
-     * Displays an image in the lightbox based on its index in the current gallery.
-     * @param {number} index - The index of the image to show.
-     */
     function showImageAtIndex(index) {
-        // Wrap around the gallery if index is out of bounds
-        if (index < 0) {
-            index = currentGalleryImages.length - 1;
-        } else if (index >= currentGalleryImages.length) {
-            index = 0;
-        }
+        if (index < 0) { index = currentGalleryImages.length - 1; }
+        if (index >= currentGalleryImages.length) { index = 0; }
         currentImageIndex = index;
-        const imageElement = currentGalleryImages[currentImageIndex];
-        lightboxImage.src = imageElement.dataset.fullSrc;
+        lightboxImage.src = currentGalleryImages[currentImageIndex].dataset.fullSrc;
     }
 
-    /**
-     * Opens the lightbox, determines if it's a gallery or single image, and displays it.
-     * @param {Event} e - The click event.
-     */
     function openLightbox(e) {
         const targetImage = e.target;
+        const isGalleryImage = targetImage.matches('.modal-gallery-container img');
+        const isFeaturedImage = targetImage.matches('.modal-featured-image, .modal-clickable-image');
 
-        // Handle clicks on gallery images
-        if (targetImage.matches('.modal-gallery-container img')) {
+        if (isGalleryImage) {
             const gallery = targetImage.closest('.modal-gallery-container');
             currentGalleryImages = [...gallery.querySelectorAll('img')];
             const clickedIndex = currentGalleryImages.findIndex(img => img === targetImage);
-
             lightboxPrevBtn.style.display = 'flex';
             lightboxNextBtn.style.display = 'flex';
             lightboxOverlay.classList.add('visible');
             showImageAtIndex(clickedIndex);
-        }
-        // Handle clicks on single featured/engineering images
-        else if (targetImage.matches('.modal-featured-image, .modal-clickable-image')) {
-            const fullSrc = targetImage.dataset.fullSrc;
-            if (fullSrc) {
-                lightboxImage.src = fullSrc;
-                lightboxPrevBtn.style.display = 'none';
-                lightboxNextBtn.style.display = 'none';
-                lightboxOverlay.classList.add('visible');
-            }
+        } else if (isFeaturedImage && targetImage.dataset.fullSrc) {
+            lightboxImage.src = targetImage.dataset.fullSrc;
+            lightboxPrevBtn.style.display = 'none';
+            lightboxNextBtn.style.display = 'none';
+            lightboxOverlay.classList.add('visible');
         }
     }
 
-    /**
-     * Closes the lightbox and resets its state.
-     */
     function closeLightbox() {
         lightboxOverlay.classList.remove('visible');
-        currentGalleryImages = [];
-        currentImageIndex = 0;
     }
 
-
-    // ===================================================================
-    // === EVENT LISTENERS ===============================================
-    // ===================================================================
-
-    // Delegated event listener for all modal triggers
-    const pageContent = document.getElementById('page-content');
-    if (pageContent) {
-        pageContent.addEventListener('click', (e) => {
-            const clickableItem = e.target.closest('[data-modal-key]');
-            if (clickableItem) {
-                const modalKey = clickableItem.dataset.modalKey;
-                openModal(modalKey);
-            }
-        });
-    }
-
-    // Listeners for closing the modal
-    closeModalBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal(); // Close if clicking on the overlay
+    // --- Event Listeners --- //
+    document.getElementById('page-content').addEventListener('click', (e) => {
+        const clickableItem = e.target.closest('[data-modal-key]');
+        if (clickableItem) {
+            openModal(clickableItem.dataset.modalKey);
+        }
     });
 
-    // Listeners for the lightbox
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
     modalContentArea.addEventListener('click', openLightbox);
     lightboxCloseBtn.addEventListener('click', closeLightbox);
-    lightboxOverlay.addEventListener('click', (e) => {
-        if (e.target === lightboxOverlay) closeLightbox(); // Close if clicking on the overlay
-    });
+    lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); });
     lightboxPrevBtn.addEventListener('click', () => showImageAtIndex(currentImageIndex - 1));
     lightboxNextBtn.addEventListener('click', () => showImageAtIndex(currentImageIndex + 1));
 
-    // Special listener for links inside the modal that should close it and scroll to a section
     modalContentArea.addEventListener('click', (e) => {
-        // Check if the clicked element or its ancestor is a link to a page section
         const sectionLink = e.target.closest('a[href^="#"]');
-
         if (sectionLink) {
             const href = sectionLink.getAttribute('href');
-            // Ensure the link is not just a placeholder and the target element exists on the page
             if (href.length > 1 && document.querySelector(href)) {
-                e.preventDefault(); // Prevent the default anchor jump
-                closeModal(); // Close the modal
-
-                // Use a short timeout to allow the modal-close animation to start before scrolling
+                e.preventDefault();
+                closeModal();
                 setTimeout(() => {
                     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
                 }, 150);
@@ -575,7 +392,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             if (lightboxOverlay.classList.contains('visible')) {
@@ -586,9 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scrolling for all navigation-related links
-    const allLinks = document.querySelectorAll('.hero-cta, .arrow, #top-nav a');
-    allLinks.forEach(link => {
+    document.querySelectorAll('.hero-cta, .arrow, #top-nav a').forEach(link => {
         link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href && href.startsWith('#')) {
@@ -598,27 +412,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-    // ===================================================================
-    // === INTERSECTION OBSERVER (for section animations & nav highlighting) ===
-    // ===================================================================
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the section is visible
-    };
-
-    let particlesInitialized = { hero: false };
-
-    const observerCallback = (entries) => {
+    // --- Intersection Observer for Section Animations --- //
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const targetSection = entry.target;
-                targetSection.classList.add('active');
-
-                // Highlight the corresponding item in the top navigation
-                const activeIndex = Array.from(sections).findIndex(sec => sec.id === targetSection.id);
+                entry.target.classList.add('active');
+                const activeIndex = Array.from(sections).findIndex(sec => sec.id === entry.target.id);
                 navItems.forEach((item, index) => {
                     item.classList.toggle('nav-active', index === activeIndex);
                 });
@@ -626,202 +425,90 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.classList.remove('active');
             }
         });
-    };
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach(section => observer.observe(section));
+    sections.forEach(section => sectionObserver.observe(section));
 
-    // ===================================================================
-    // === 3D TILT EFFECT FOR CARDS ======================================
-    // ===================================================================
-
-    const tiltableCards = document.querySelectorAll('.project-box, .engineering-project-card, .architecture-project-card');
-
-    tiltableCards.forEach(card => {
+    // --- 3D Tilt Effect for Cards --- //
+    document.querySelectorAll('.project-box, .engineering-project-card, .architecture-project-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // Mouse X position inside the card
-            const y = e.clientY - rect.top;  // Mouse Y position inside the card
-
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const { width, height } = rect;
-            const rotateX = (y / height - 0.5) * -15; // Max rotation 7.5deg
-            const rotateY = (x / width - 0.5) * 15;   // Max rotation 7.5deg
-
-            // Apply the 3D tilt and a slight scale effect
+            const rotateX = (y / height - 0.5) * -15;
+            const rotateY = (x / width - 0.5) * 15;
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
         });
-
         card.addEventListener('mouseleave', () => {
-            // Reset the card's transform on mouse leave
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
         });
     });
-    // ===================================================================
-    // === SVG ICON ANIMATIONS ===========================================
-    // ===================================================================
 
+    // --- SVG Icon Animations --- //
     const iconGrid = document.querySelector('.projects-grid');
     if (iconGrid && typeof Vivus !== 'undefined') {
-        // A simple array to hold the Vivus instances
         const vivusInstances = [];
-
-        // The IDs of the icons we want to animate
-        const iconIds = [
-            'icon-engineering', 'icon-architecture', 'icon-realestate',
-            'icon-raytheon', 'icon-travels', 'icon-photoshop'
-        ];
-
-        // Initialize Vivus for each icon
+        const iconIds = ['icon-engineering', 'icon-architecture', 'icon-realestate', 'icon-raytheon', 'icon-travels', 'icon-photoshop'];
         iconIds.forEach(id => {
             const el = document.getElementById(id);
             if (el) {
-                vivusInstances.push(new Vivus(id, {
-                    duration: 120,
-                    start: 'manual',
-                    type: 'oneByOne'
-                }));
+                vivusInstances.push(new Vivus(id, { duration: 120, start: 'manual', type: 'oneByOne' }));
             }
         });
-
-        // This observer will watch the icon grid
         const iconObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // If the grid is in view...
                 if (entry.isIntersecting) {
-                    // ...play all the animations.
                     vivusInstances.forEach(instance => instance.play());
                 } else {
-                    // ...otherwise, reset them so they are ready to play again.
                     vivusInstances.forEach(instance => instance.reset());
                 }
             });
-        }, {
-            threshold: 0.5 // Trigger when 50% of the grid is visible
-        });
-
-        // Start observing the icon grid
+        }, { threshold: 0.5 });
         iconObserver.observe(iconGrid);
     }
 
-    // ===================================================================
-    // === TEXT DECODING EFFECT ==========================================
-    // ===================================================================
-
-    const decodeElements = document.querySelectorAll('.decode-text');
-    const chars = "!<>-_\\/[]{}—=+*^?#"; // Characters used for scrambling
-
-    // This function holds a single animation interval.
-    // We need to keep track of it to stop it if the user scrolls away mid-animation.
-    let textAnimationInterval = null;
-
-    const decodeTextEffect = (element) => {
-        const originalText = element.dataset.originalText;
-        let iteration = 0;
-
-        // Clear any existing animation before starting a new one
-        clearInterval(textAnimationInterval);
-
-        textAnimationInterval = setInterval(() => {
-            element.textContent = originalText.split("")
-                .map((letter, index) => {
-                    if (index < iteration) {
-                        return originalText[index];
-                    }
-                    return chars[Math.floor(Math.random() * chars.length)];
-                })
-                .join("");
-
-            if (iteration >= originalText.length) {
-                clearInterval(textAnimationInterval);
-            }
-
-            iteration += 1 / 3;
-        }, 30);
-    };
-
-    if (decodeElements.length > 0) {
-        decodeElements.forEach(el => {
-            // Store the original text so we can always access it
-            el.dataset.originalText = el.textContent;
+    // --- Contact Icon Animation --- //
+    const contactIcon = document.getElementById('icon-contact');
+    if (contactIcon && typeof Vivus !== 'undefined') {
+        const contactVivus = new Vivus('icon-contact', {
+            duration: 150,
+            start: 'manual',
+            type: 'oneByOne'
         });
-
-        const textObserver = new IntersectionObserver((entries) => {
+        const contactIconObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // If the title is intersecting (in view)
                 if (entry.isIntersecting) {
-                    decodeTextEffect(entry.target);
+                    // When the icon is visible, play the animation.
+                    contactVivus.play();
                 } else {
-                    // If it's not in view, reset its text to the original state
-                    // This prepares it for the next time it scrolls into view.
-                    entry.target.textContent = entry.target.dataset.originalText;
-                    // Optional: You could also set it to empty if you want it to be blank when off-screen
-                    // entry.target.textContent = ''; 
+                    // When the icon is not visible, reset it for next time.
+                    contactVivus.reset();
                 }
             });
-        }, {
-            threshold: 0.8 // Trigger when 80% of the element is visible
-        });
-
-        // Observe each of the elements with the .decode-text class
-        decodeElements.forEach(el => textObserver.observe(el));
+        }, { threshold: 0.8 });
+        contactIconObserver.observe(contactIcon);
     }
-    // ===================================================================
-    // === ARCHITECTURE TITLE ANIMATION ==================================
-    // ===================================================================
 
-    const architectTitle = document.getElementById('architect-title-svg');
-
-    if (architectTitle) {
-        const architectTitleObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // If the SVG title is intersecting (in view)
-                if (entry.isIntersecting) {
-                    // Add the .animate class to trigger the CSS keyframes
-                    entry.target.classList.add('animate');
-                } else {
-                    // If it's not in view, remove the class.
-                    // This resets the animation so it can play again.
-                    entry.target.classList.remove('animate');
-                }
-            });
-        }, {
-            threshold: 0.8 // Trigger when 80% of the title is visible
-        });
-
-        architectTitleObserver.observe(architectTitle);
-    }
-    // ===================================================================
-    // === DIGITAL BLUEPRINT BACKGROUND ==================================
-    // ===================================================================
-
+    // --- Digital Blueprint Background --- //
     const blueprintCanvas = document.getElementById('blueprint-background');
     if (blueprintCanvas) {
         const ctx = blueprintCanvas.getContext('2d');
         let lines = [];
         const gridSize = 40;
 
-        // --- Setup and Resize ---
         const setupCanvas = () => {
             blueprintCanvas.width = window.innerWidth;
             blueprintCanvas.height = window.innerHeight;
         };
-
         window.addEventListener('resize', setupCanvas);
 
-        // --- Grid Drawing ---
-        const drawGrid = () => {
-            ctx.clearRect(0, 0, blueprintCanvas.width, blueprintCanvas.height);
-        };
-
-        // --- Line Animation ---
         class Line {
             constructor() {
                 this.path = [];
-                // The progress property now represents the position of the "head" of the light streak.
                 this.progress = 0;
                 this.totalLength = 0;
-                // This new property defines the visible length of the light streak.
-                this.tailLength = 250;
+                this.tailLength = 250; // The visible length of the light streak.
 
                 let currentX = Math.floor(Math.random() * (blueprintCanvas.width / gridSize)) * gridSize;
                 let currentY = Math.floor(Math.random() * (blueprintCanvas.height / gridSize)) * gridSize;
@@ -839,46 +526,34 @@ document.addEventListener('DOMContentLoaded', () => {
                         nextX = currentX;
                         nextY = Math.floor(Math.random() * (blueprintCanvas.height / gridSize)) * gridSize;
                     }
-                    
                     this.totalLength += Math.abs(nextX - currentX) + Math.abs(nextY - currentY);
                     this.path.push({ x: nextX, y: nextY });
-                    
                     currentX = nextX;
                     currentY = nextY;
-                    
                     direction = (direction === 'h') ? 'v' : 'h';
                 }
             }
-
             update() {
-                // The progress now continuously increases to move the streak across the screen.
-                this.progress += 3; // Increased speed for a better effect
+                this.progress += 3;
             }
-
             draw() {
                 ctx.beginPath();
                 let cumulativeLength = 0;
                 const head = this.progress;
                 const tail = head - this.tailLength;
 
-                // Loop through each segment of the line's path
                 for (let i = 0; i < this.path.length - 1; i++) {
                     const p1 = this.path[i];
-                    const p2 = this.path[i+1];
+                    const p2 = this.path[i + 1];
                     const segmentLength = Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
-
                     const startOfSegmentDist = cumulativeLength;
                     const endOfSegmentDist = cumulativeLength + segmentLength;
-
-                    // Determine the start and end of the visible portion of the light streak on this segment
                     const visibleStartDist = Math.max(startOfSegmentDist, tail);
                     const visibleEndDist = Math.min(endOfSegmentDist, head);
 
-                    // If the streak is visible on this segment, draw it
                     if (visibleStartDist < visibleEndDist) {
                         const startFraction = (visibleStartDist - startOfSegmentDist) / segmentLength;
                         const endFraction = (visibleEndDist - startOfSegmentDist) / segmentLength;
-
                         const startPoint = {
                             x: p1.x + (p2.x - p1.x) * startFraction,
                             y: p1.y + (p2.y - p1.y) * startFraction
@@ -887,22 +562,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             x: p1.x + (p2.x - p1.x) * endFraction,
                             y: p1.y + (p2.y - p1.y) * endFraction
                         };
-
-                        // Create a gradient just for this visible piece
                         const gradient = ctx.createLinearGradient(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-                        const color = '0, 191, 255'; // The "Blueprint Blue" color
-
-                        // Calculate opacity based on position within the tail
+                        const color = '0, 191, 255';
                         const opacityAtStart = (visibleStartDist - tail) / this.tailLength;
                         const opacityAtEnd = (visibleEndDist - tail) / this.tailLength;
 
-                        // The gradient creates the fade effect
                         gradient.addColorStop(0, `rgba(${color}, ${opacityAtStart * 0.8})`);
                         gradient.addColorStop(1, `rgba(${color}, ${opacityAtEnd * 0.8})`);
-
                         ctx.strokeStyle = gradient;
                         ctx.lineWidth = 1.5;
-
                         ctx.moveTo(startPoint.x, startPoint.y);
                         ctx.lineTo(endPoint.x, endPoint.y);
                     }
@@ -913,23 +581,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const animate = () => {
-            drawGrid();
-
+            ctx.clearRect(0, 0, blueprintCanvas.width, blueprintCanvas.height);
             if (lines.length < 15 && Math.random() < 0.05) {
                 lines.push(new Line());
             }
-
             lines = lines.filter(line => {
                 line.update();
                 line.draw();
-                // A line is removed once its tail has passed the end of the path.
                 return (line.progress - line.tailLength) < line.totalLength;
             });
-
             requestAnimationFrame(animate);
         };
-
-        // --- Initialize ---
+        
         setupCanvas();
         animate();
     }

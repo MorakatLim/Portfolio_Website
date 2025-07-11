@@ -9,35 +9,39 @@
     <link rel="icon" type="image/jpeg" href="me_ghibli_style.jpg">
 </head>
 
-<body class="theme-hero">
+<body>
     <canvas id="blueprint-background"></canvas>
     <nav id="top-nav">
         <ul class="nav-list">
         </ul>
     </nav>
 
-
     <main id="page-content">
         <section id="hero" data-theme="hero" tabindex="-1">
-            <div class="hero-content">
-                <h1 class="fade-in-up delay-1">Morakat Lim</h1>
-                <p class="subtitle fade-in-up delay-2">Engineer & Designer</p>
-                <p class="mission-statement fade-in-up delay-3">
-                    I build things—whether it's robust software, thoughtfully designed spaces, or architectural pieces.
-                    My work is at the intersection of engineering and design.
-                </p>
-                <a href="#about" class="hero-cta fade-in-up delay-4">Read more about me!</a>
-                <div class="hero-socials fade-in-up delay-5">
-                    <a href="https://www.linkedin.com/in/morakat-lim-6a8bb61ba/" target="_blank" title="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                            </path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                        <span class="sr-only">Visit my LinkedIn profile</span>
-                    </a>
+            <div class="hero-grid">
+                <div class="hero-text-content">
+                    <h1 class="fade-in-up delay-1">Morakat Lim</h1>
+                    <p class="subtitle fade-in-up delay-2">Engineer & Designer</p>
+                    <p class="mission-statement fade-in-up delay-3">
+                        I build things—whether it's robust software, thoughtfully designed spaces, or architectural pieces.
+                        My work is at the intersection of engineering and design.
+                    </p>
+                    <a href="#about" class="hero-cta fade-in-up delay-4">Read more about me!</a>
+                    <div class="hero-socials fade-in-up delay-5">
+                        <a href="https://www.linkedin.com/in/morakat-lim-6a8bb61ba/" target="_blank" title="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                            <span class="sr-only">Visit my LinkedIn profile</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual-content">
+                    <div class="hero-photo fade-in-up delay-2"></div>
                 </div>
             </div>
             <div class="section-nav-arrows">
@@ -52,17 +56,24 @@
 
         <section id="about" data-theme="about" tabindex="-1">
             <div class="about-container">
-                <div class="about-left">
-                    <div class="about-photo-container" data-modal-key="profile" role="button" tabindex="0">
-                    </div>
-                </div>
-                <div class="about-right">
-                    <h1>About Me</h1>
+                <div class="about-left-col">
+                    <h1 class="section-title">About Me</h1>
                     <p class="about-bio">
                         This is a summary about my journey, my passion for technology and design, and
                         what drives me to create innovative solutions. I thrive on challenges and continuously learn new
                         skills.
                     </p>
+                    <div class="skills-showcase">
+                        <h3>Core Competencies</h3>
+                        <ul>
+                            <li>Systems Engineering</li>
+                            <li>Architectural Design</li>
+                            <li>Creative Development</li>
+                            <li>Real Estate Analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="about-right-col">
                     <div class="projects-grid">
                         <div class="project-box" data-modal-key="engineering" role="button" tabindex="0">
                             <div class="project-icon"><svg id="icon-engineering" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -144,23 +155,27 @@
         </section>
 
         <section id="engineering" data-theme="engineering" tabindex="-1">
-            <div class="engineering-main-container">
-                <h1 class="section-title decode-text">Engineering Projects</h1>
-                <p class="section-intro">
-                    Driven by a passion for problem-solving, I focus on designing and building robust systems with cutting-edge technology. Below are some of the projects where I've applied my skills in software, firmware, and embedded systems.
-                </p>
-                <div class="engineering-projects-grid">
-                    <div class="engineering-project-card" data-modal-key="engineeringProject1" role="button" tabindex="0">
-                        <h3>Placeholder Project One</h3>
-                        <p>A brief description of the first engineering project, highlighting the key challenges and technologies used.</p>
-                    </div>
-                    <div class="engineering-project-card" data-modal-key="engineeringProject2" role="button" tabindex="0">
-                        <h3>Placeholder Project Two</h3>
-                        <p>A brief description of the second engineering project, focusing on its innovative aspects and the results achieved.</p>
-                    </div>
-                    <div class="engineering-project-card" data-modal-key="engineeringProject3" role="button" tabindex="0">
-                        <h3>Placeholder Project Three</h3>
-                        <p>A brief description of the third engineering project, detailing my role and the system's architecture.</p>
+            <div class="page-layout-grid">
+                <div class="page-left-col">
+                    <h1 class="section-title">Engineering Projects</h1>
+                    <p class="section-intro">
+                        Driven by a passion for problem-solving, I focus on designing and building robust systems with cutting-edge technology. Below are some of the projects where I've applied my skills in software, firmware, and embedded systems.
+                    </p>
+                </div>
+                <div class="page-right-col">
+                    <div class="engineering-projects-grid">
+                        <div class="engineering-project-card" data-modal-key="engineeringProject1" role="button" tabindex="0">
+                            <h3>Placeholder Project One</h3>
+                            <p>A brief description of the first engineering project, highlighting the key challenges and technologies used.</p>
+                        </div>
+                        <div class="engineering-project-card" data-modal-key="engineeringProject2" role="button" tabindex="0">
+                            <h3>Placeholder Project Two</h3>
+                            <p>A brief description of the second engineering project, focusing on its innovative aspects and the results achieved.</p>
+                        </div>
+                        <div class="engineering-project-card" data-modal-key="engineeringProject3" role="button" tabindex="0">
+                            <h3>Placeholder Project Three</h3>
+                            <p>A brief description of the third engineering project, detailing my role and the system's architecture.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,35 +194,28 @@
         </section>
 
         <section id="architecture" data-theme="architecture" tabindex="-1">
-            <div class="architecture-main-container">
-                <svg id="architect-title-svg" viewBox="0 0 900 100" aria-labelledby="architectTitle">
-                    <title id="architectTitle">Architecture & Design</title>
-                    <text id="architect-title-text" x="50%" y="50%" dy=".35em" text-anchor="middle">
-                        Architecture & Design
-                    </text>
-                </svg>
-                <p class="section-intro">
-                    My design philosophy centers on human-centric and sustainable design. I believe that buildings should not
-                    only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated
-                    with their surroundings. Explore my conceptual projects below.
-                </p>
-                <div class="architecture-projects-grid">
-                    <div class="architecture-project-card" data-modal-key="dreamHome" role="button" tabindex="0">
-                        <div class="card-content">
+            <div class="page-layout-grid">
+                <div class="page-left-col">
+                    <h1 class="section-title">Architecture & Design</h1>
+                    <p class="section-intro">
+                        My design philosophy centers on human-centric and sustainable design. I believe that buildings should not
+                        only be aesthetically pleasing but also functional, environmentally responsible, and seamlessly integrated
+                        with their surroundings. Explore my conceptual projects below.
+                    </p>
+                </div>
+                <div class="page-right-col">
+                    <div class="architecture-projects-grid">
+                        <div class="architecture-project-card" data-modal-key="dreamHome" role="button" tabindex="0">
                             <h3>Dream Home Design</h3>
                             <p>A personal exploration of modern, sustainable living, designed to harmonize with its natural
                                 surroundings and embody a futuristic yet comfortable aesthetic.</p>
                         </div>
-                    </div>
-                    <div class="architecture-project-card" data-modal-key="currentHome" role="button" tabindex="0">
-                        <div class="card-content">
+                        <div class="architecture-project-card" data-modal-key="currentHome" role="button" tabindex="0">
                             <h3>Current Home Design</h3>
                             <p>Applying architectural principles to my current living space, focusing on spatial optimization,
                                 multi-functionality, and enhancing daily life through smart design.</p>
                         </div>
-                    </div>
-                    <div class="architecture-project-card" data-modal-key="firmDesign" role="button" tabindex="0">
-                        <div class="card-content">
+                        <div class="architecture-project-card" data-modal-key="firmDesign" role="button" tabindex="0">
                             <h3>E.A.R. Firm Headquarters</h3>
                             <p>A conceptual design for an innovative Engineering, Architecture, and Real Estate (E.A.R.) firm,
                                 reflecting a collaborative and forward-thinking spirit.</p>
@@ -230,19 +238,26 @@
         </section>
 
         <section id="contact" data-theme="contact" tabindex="-1">
-            <div class="hud-panel">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <svg id="icon-contact" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2L11 13"></path>
+                        <path d="M22 2L15 22L11 13L2 9L22 2z"></path>
+                    </svg>
+                </div>
                 <h1>Get In Touch</h1>
                 <p>
-                    Interested in a conversation? Reach out!
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                 </p>
                 <a href="mailto:morakat.lim@gmail.com" class="hero-cta">Email Me</a>
             </div>
             <div class="section-nav-arrows">
-                <a href="#architecture" class="arrow up-arrow" aria-label="Scroll up"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <a href="#architecture" class="arrow up-arrow" aria-label="Scroll up">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 19V5M5 12l7-7 7 7" />
-                    </svg></a>
+                    </svg>
+                </a>
             </div>
         </section>
     </main>

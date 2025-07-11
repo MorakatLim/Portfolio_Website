@@ -1,20 +1,21 @@
-/* =================================================================== */
-/* === FONT IMPORT & ROOT VARIABLES ================================== */
-/* =================================================================== */
+/*
+ * Google Fonts & Root Variables
+ * --------------------------------------------------
+ */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-    --clr-accent: #00BFFF; /* Formerly --clr-gold */
-    --clr-accent-glow: rgba(0, 191, 255, 0.5); /* Formerly --clr-gold-glow */
+    --clr-accent: #00BFFF;
+    --clr-accent-glow: rgba(0, 191, 255, 0.5);
     --clr-purple: #9370DB;
     --clr-purple-glow: rgba(147, 112, 219, 0.5);
-    --clr-engineering-bg: #010409;
 }
 
-/* =================================================================== */
-/* === GLOBAL & UTILITY STYLES ======================================= */
-/* =================================================================== */
+/*
+ * Global & Utility Styles
+ * --------------------------------------------------
+ */
 
 * {
     box-sizing: border-box;
@@ -29,30 +30,15 @@ html {
 
 body {
     font-family: 'Poppins', sans-serif;
-    /* New high-contrast diagonal gradient */
     background: linear-gradient(to bottom right, #0d1a2b, #010409 70%);
     color: #fff;
-}
-
-#blueprint-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: block;
-
-    /* Add the noise texture directly to the canvas background */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.2;
 }
 
 body.modal-open {
     overflow: hidden;
 }
 
-/* --- Accessibility & Utility Classes --- */
+/* Screen-reader only text */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -65,6 +51,7 @@ body.modal-open {
     border-width: 0;
 }
 
+/* Custom focus outline for accessibility */
 a:focus-visible,
 button:focus-visible {
     outline: 3px solid var(--clr-accent);
@@ -72,9 +59,28 @@ button:focus-visible {
     border-radius: 4px;
 }
 
-/* =================================================================== */
-/* === TOP NAVIGATION BAR ============================================ */
-/* =================================================================== */
+/*
+ * Background Canvas
+ * --------------------------------------------------
+ */
+
+#blueprint-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.2;
+}
+
+
+/*
+ * Top Navigation Bar
+ * --------------------------------------------------
+ */
 
 #top-nav {
     position: fixed;
@@ -106,8 +112,6 @@ button:focus-visible {
 
 .nav-list li {
     margin: 0;
-    opacity: 1;
-    transition: opacity 0.3s ease;
 }
 
 .nav-list li a {
@@ -118,7 +122,7 @@ button:focus-visible {
     font-weight: 600;
     line-height: 40px;
     white-space: nowrap;
-    transition: color 0.3s ease, letter-spacing 0.3s ease, font-size 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
+    transition: color 0.3s ease, letter-spacing 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
     opacity: 0.5;
 }
 
@@ -131,14 +135,14 @@ button:focus-visible {
 .nav-list li.nav-active a {
     color: #fff;
     letter-spacing: 1px;
-    font-size: 1.1em;
     opacity: 1;
     text-shadow: 0 0 8px var(--clr-accent-glow), 0 0 15px var(--clr-purple-glow);
 }
 
-/* =================================================================== */
-/* === MAIN LAYOUT & SECTIONS ======================================== */
-/* =================================================================== */
+/*
+ * Main Layout & Sections
+ * --------------------------------------------------
+ */
 
 main#page-content {
     display: block;
@@ -168,61 +172,92 @@ section:focus {
     outline: none;
 }
 
-.hud-panel {
-    padding: 40px;
-    text-align: center;
-    max-width: 800px;
-    position: relative;
-    z-index: 2;
-}
-
-.hud-panel h1 {
+.section-title {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: #fff;
-    text-shadow: 0 0 8px var(--clr-accent-glow), 0 0 15px var(--clr-purple-glow);
+    text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
 }
 
-.hud-panel p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+.section-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0 auto 3rem auto;
+    max-width: 800px;
+    color: rgba(255, 255, 255, 0.85);
 }
 
+/*
+ * Keyframe Animations
+ * --------------------------------------------------
+ */
 
-/* =================================================================== */
-/* === HERO SECTION ================================================== */
-/* =================================================================== */
-
-#hero {
-    justify-content: center;
-    text-align: center;
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.theme-hero .hero-content {
-    color: #fff;
-    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
-    z-index: 1;
-    pointer-events: none;
-    max-width: 50%;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.hero-content>* {
-    pointer-events: auto;
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1.0s; }
+
+/* Applies to most major headings */
+#hero h1,
+#about h1,
+.contact-card h1,
+.section-title {
+    animation: float 6s ease-in-out infinite;
 }
 
-.hero-content h1 {
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/*
+ * Section: Hero
+ * --------------------------------------------------
+ */
+
+#hero .hero-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+#hero .hero-text-content {
+    text-align: left;
+}
+
+#hero .hero-text-content h1 {
     font-size: 6rem;
     margin-bottom: 0.5rem;
     color: #fff;
     text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
 }
 
-.hero-content .subtitle {
+#hero .hero-text-content .subtitle {
     font-size: 1.7rem;
     font-weight: 300;
 }
 
-.hero-content .mission-statement {
+#hero .hero-text-content .mission-statement {
     font-size: 1.2rem;
     font-weight: 300;
     max-width: 600px;
@@ -230,6 +265,48 @@ section:focus {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
 }
+
+.hero-socials {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2.5rem;
+    justify-content: flex-start;
+}
+
+.hero-socials a {
+    color: var(--clr-accent);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.hero-socials a:hover {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 8px var(--clr-accent)) drop-shadow(0 0 12px var(--clr-purple));
+}
+
+.hero-visual-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-photo {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background-image: url('me_ghibli_style.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 4px solid var(--clr-accent);
+    box-shadow: 0 0 35px var(--clr-accent-glow), 0 0 50px var(--clr-purple-glow);
+    animation: float 6s ease-in-out infinite;
+}
+
+/*
+ * Global Component Styles (like buttons)
+ * --------------------------------------------------
+ */
 
 .hero-cta {
     display: inline-block;
@@ -253,135 +330,96 @@ section:focus {
     transform: translateY(-3px) scale(1.05);
 }
 
-.hero-socials {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 2.5rem;
-    justify-content: center;
-}
-
-.hero-socials a {
-    color: var(--clr-accent);
-    opacity: 0.8;
-    transition: all 0.3s ease;
-}
-
-.hero-socials a:hover {
-    opacity: 1;
-    transform: translateY(-3px) scale(1.1);
-    filter: drop-shadow(0 0 8px var(--clr-accent)) drop-shadow(0 0 12px var(--clr-purple));
-}
-
-#sphere-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-/* --- Animations --- */
-.fade-in-up {
-    opacity: 100;
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
-.delay-5 { animation-delay: 1.0s; }
-
-#hero h1,
-#about h1,
-.hud-panel h1,
-.section-title,
-#architect-title-svg {
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
-
-/* =================================================================== */
-/* === ABOUT ME SECTION ============================================== */
-/* =================================================================== */
+/*
+ * Section: About
+ * --------------------------------------------------
+ */
 
 .about-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 50px;
-    align-items: center;
-    max-width: 1200px;
+    gap: 60px;
+    align-items: start;
     width: 100%;
+    max-width: 1400px;
 }
 
-.about-left {
+.about-left-col {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.about-photo-container {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background-color: #333;
-    background-image: url('me_ghibli_style.jpg');
-    background-size: cover;
-    background-position: center;
-    border: 4px solid var(--clr-accent);
-    box-shadow: 0 0 25px var(--clr-accent-glow), 0 0 40px var(--clr-purple-glow);
-    animation: float 6s ease-in-out infinite;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-photo-container:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 40px var(--clr-accent-glow), 0 0 60px var(--clr-purple-glow);
-}
-
-.about-right {
-    color: #fff;
+.about-left-col h1 {
     text-align: left;
 }
 
-.about-right h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
-}
-
-.about-right .about-bio {
+.about-left-col .about-bio {
+    text-align: left;
+    max-width: none;
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.85);
     font-size: 1.1rem;
     line-height: 1.7;
-    margin-bottom: 2.5rem;
-    max-width: 650px;
-    color: rgba(255, 255, 255, 0.85);
 }
 
-/* --- Projects Grid --- */
-.projects-grid {
+.about-right-col .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.skills-showcase {
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    background: rgba(13, 26, 43, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+}
+
+.skills-showcase h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--clr-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+}
+
+.skills-showcase ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skills-showcase li {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+    text-align: center;
+}
+
+.skills-showcase li:last-child {
+    border-bottom: none;
+}
+
+/*
+ * Card & Grid Styles
+ * --------------------------------------------------
+ */
+
+.projects-grid,
+.engineering-projects-grid,
+.architecture-projects-grid {
     display: grid;
+    gap: 30px;
+    width: 100%;
+}
+
+.engineering-projects-grid,
+.architecture-projects-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    align-items: stretch;
 }
 
 .project-icon {
@@ -397,7 +435,6 @@ section:focus {
     filter: drop-shadow(0 0 5px var(--clr-accent)) drop-shadow(0 0 10px var(--clr-purple));
 }
 
-/* --- Project Box Hover Animation --- */
 @property --angle {
     syntax: '<angle>';
     initial-value: 0deg;
@@ -410,19 +447,13 @@ section:focus {
     }
 }
 
-/* === Unified Glass Card Style === */
 .project-box,
 .engineering-project-card,
 .architecture-project-card {
-    /* 1. The New Glass Background */
-    background: rgba(45, 52, 79, 0.25);
+    background: rgba(13, 26, 43, 0.6);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    
-    /* 2. A more subtle border for the glass look */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* 3. Consolidated styles from all original cards */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 191, 255, 0.2);
     border-radius: 12px;
     padding: 30px;
     cursor: pointer;
@@ -431,18 +462,18 @@ section:focus {
     text-align: left;
     transform-style: preserve-3d;
     transform: perspective(1000px);
-    transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease, background 0.3s ease;
 }
 
-/* 4. Keeping the original hover effects */
 .project-box:hover,
 .engineering-project-card:hover,
 .architecture-project-card:hover {
+    background: rgba(13, 26, 43, 0.75);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 0 15px var(--clr-purple-glow), 0 0 20px var(--clr-accent-glow);
     border-image: conic-gradient(from var(--angle), #010409, var(--clr-accent), var(--clr-purple), var(--clr-accent), #010409) 1;
-    animation: border-spin 3s linear infinite;
+    animation:
+        border-spin 3s linear infinite;
 }
-
 
 .project-box:hover h3,
 .project-box:hover p,
@@ -450,13 +481,7 @@ section:focus {
 .engineering-project-card:hover p,
 .architecture-project-card:hover h3,
 .architecture-project-card:hover p {
-    text-shadow:
-        0px 1px 0px rgba(0, 0, 0, 1.0),
-        0px 2px 0px rgba(0, 0, 0, 1.0),
-        0px 3px 0px rgba(0, 0, 0, 1.0),
-        0px 4px 0px rgba(0, 0, 0, 1.0),
-        /* This last layer adds a subtle glow on top of the 3D effect */
-        0 0 8px var(--clr-accent-glow);
+    text-shadow: none;
 }
 
 .project-box h3,
@@ -477,71 +502,77 @@ section:focus {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     transition: text-shadow 0.3s ease-out;
+    flex-grow: 1;
 }
 
+/*
+ * Section: Engineering & Architecture
+ * --------------------------------------------------
+ */
 
-/* =================================================================== */
-/* === THEME-SPECIFIC STYLES ========================================= */
-/* =================================================================== */
-
-/* --- Unified Panel Styles --- */
-.theme-real-estate .hud-panel,
-.theme-occupation .hud-panel,
-.theme-contact .hud-panel {
-    border: 1px solid var(--clr-purple);
-    background: rgba(10, 25, 47, 0.2);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2), 0 0 35px var(--clr-purple-glow);
-    color: #fff;
+.page-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
 }
 
-/* --- Engineering Theme --- */
-
-/* --- Architecture Theme --- */
-.theme-architecture .hud-panel {
-    padding: 38px;
-    position: relative;
-    border: 2px solid var(--clr-purple);
-    background-color: rgba(1, 4, 9, 0.4);
-    backdrop-filter: blur(2px);
-    background-image:
-        linear-gradient(var(--clr-purple-glow) 1px, transparent 1px),
-        linear-gradient(90deg, var(--clr-purple-glow) 1px, transparent 1px);
-    background-size: 25px 25px;
-    box-shadow: 0 0 25px var(--clr-purple-glow);
+.page-left-col {
+    text-align: center;
 }
 
-.theme-architecture .hud-panel::before {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    border: 1px solid var(--clr-purple);
+.page-left-col .section-intro {
+    margin: 0;
+    max-width: 100%;
 }
 
-.theme-architecture .hud-panel h1 {
-    color: #fff;
-    text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
+/*
+ * Section: Contact (Card Style)
+ * --------------------------------------------------
+ */
+
+.contact-card {
+    background: rgba(13, 26, 43, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    border-radius: 15px;
+    padding: 3rem 4rem;
+    max-width: 650px;
+    text-align: center;
+    transition: background 0.3s ease;
 }
 
-/* --- Contact Theme --- */
-.theme-contact .hero-cta {
-    border-color: var(--clr-accent);
-    color: #fff;
+.contact-card:hover {
+    background: rgba(13, 26, 43, 0.75);
 }
 
-.theme-contact .hero-cta:hover {
-    background-color: var(--clr-accent-glow);
-    color: #fff;
+.contact-icon {
+    margin-bottom: 1.5rem;
+    color: var(--clr-accent);
+    filter: drop-shadow(0 0 5px var(--clr-accent)) drop-shadow(0 0 10px var(--clr-purple));
 }
 
-/* =================================================================== */
-/* === UI COMPONENTS ================================================= */
-/* =================================================================== */
+.contact-card h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
 
-/* --- Section Navigation Arrows --- */
+.contact-card p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+/*
+ * UI Components
+ * --------------------------------------------------
+ */
+
+/* Section Navigation Arrows */
 .section-nav-arrows {
     position: absolute;
     bottom: 30px;
@@ -569,7 +600,7 @@ section:focus {
     transform: translateY(3px) scale(1.1);
 }
 
-/* --- Modal Styles --- */
+/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -641,7 +672,6 @@ body.modal-open .modal-window {
 
 .modal-content-area {
     position: relative;
-    padding-bottom: 50px;
 }
 
 .modal-content-area h2,
@@ -655,7 +685,11 @@ body.modal-open .modal-window {
     line-height: 1.7;
 }
 
-/* --- Modal Profile --- */
+/*
+ * Modal Content Styles
+ * --------------------------------------------------
+ */
+
 .modal-profile-content {
     display: flex;
     flex-direction: column;
@@ -691,83 +725,10 @@ body.modal-open .modal-window {
     margin-bottom: 8px;
 }
 
-/* --- Modal Expandable Content --- */
-.modal-expand-btn {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: transparent;
-    border: 2px solid var(--clr-accent);
-    color: var(--clr-accent);
-    cursor: pointer;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    padding: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-expand-btn:hover {
-    opacity: 1;
-    background-color: var(--clr-accent-glow);
-    transform: translateX(-50%) scale(1.1);
-}
-
-.modal-expand-btn svg {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.4s ease;
-}
-
-.modal-expandable-content {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-top 0.5s ease-out;
-    margin-top: 0;
-    border-top: 1px solid var(--clr-accent);
-}
-
-.modal-window.expanded .modal-expandable-content {
-    max-height: 500px;
-    opacity: 1;
-    margin-top: 20px;
-    padding-top: 20px;
-}
-
-.modal-window.expanded .modal-expand-btn svg {
-    transform: rotate(180deg);
-}
-
-/* --- Modal Travel Gallery --- */
-.gallery-category-title {
-    margin-top: 25px;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--clr-accent);
-    color: #fff;
-    font-weight: 600;
-    text-shadow: 0 0 8px var(--clr-accent-glow);
-}
-
-.gallery-category-title:first-of-type {
-    margin-top: 15px;
-}
-
 .modal-gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 10px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.modal-gallery-container::-webkit-scrollbar {
-    display: none;
 }
 
 .modal-gallery-container img {
@@ -787,7 +748,16 @@ body.modal-open .modal-window {
     border-color: var(--clr-accent);
 }
 
-/* --- Modal Featured Image --- */
+.gallery-category-title {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--clr-accent);
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 8px var(--clr-accent-glow);
+}
+
 .modal-featured-image-container {
     margin-bottom: 25px;
     border-radius: 8px;
@@ -808,7 +778,6 @@ body.modal-open .modal-window {
     transform: scale(1.05);
 }
 
-/* --- Modal PDF Viewer --- */
 .pdf-container {
     width: 100%;
     height: 65vh;
@@ -825,7 +794,7 @@ body.modal-open .modal-window {
     border: none;
 }
 
-/* --- Lightbox Styles --- */
+/* Lightbox Styles */
 #lightbox-overlay {
     position: fixed;
     top: 0;
@@ -901,12 +870,10 @@ body.modal-open .modal-window {
     right: 20px;
 }
 
-/* =================================================================== */
-/* === CUSTOM MODAL STYLES =========================================== */
-/* =================================================================== */
-
-/* --- Raytheon Modal --- */
-.modal-raytheon-content .raytheon-description {
+/* Modal: Specific Content Sections */
+.raytheon-description,
+.engineering-description,
+.modal-architecture-summary {
     font-size: 1.1rem;
     line-height: 1.7;
     max-width: 700px;
@@ -916,7 +883,8 @@ body.modal-open .modal-window {
     padding-left: 15px;
 }
 
-.raytheon-projects-container {
+.raytheon-projects-container,
+.engineering-projects-container {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -929,14 +897,15 @@ body.modal-open .modal-window {
     width: 40%;
 }
 
+.engineering-project {
+    text-align: center;
+    width: 50%;
+}
+
 .raytheon-icon {
     color: var(--clr-accent);
     filter: drop-shadow(0 0 8px var(--clr-accent-glow)) drop-shadow(0 0 12px var(--clr-purple-glow));
     margin-bottom: 15px;
-}
-
-.raytheon-subtitles {
-    margin-bottom: 10px;
 }
 
 .subtitle-role {
@@ -952,30 +921,6 @@ body.modal-open .modal-window {
     font-weight: 300;
     color: rgba(255, 255, 255, 0.7);
     margin: 0;
-}
-
-/* --- Engineering Modal --- */
-.modal-engineering-content .engineering-description {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 700px;
-    margin: 0 auto 30px auto;
-    text-align: left;
-    border-left: 3px solid var(--clr-accent);
-    padding-left: 15px;
-}
-
-.engineering-projects-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    padding-top: 20px;
-    border-top: 1px solid var(--clr-accent);
-}
-
-.engineering-project {
-    text-align: center;
-    width: 50%;
 }
 
 .engineering-image-container {
@@ -1014,51 +959,6 @@ body.modal-open .modal-window {
     text-shadow: 0 0 15px var(--clr-accent-glow);
 }
 
-/* --- Architecture Modal (OLD) --- */
-.architecture-project-details {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.architecture-project-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 5px;
-    text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
-}
-
-.architecture-project-desc {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.architecture-philosophy {
-    padding: 20px 0;
-    margin-bottom: 20px;
-    border-top: 1px solid var(--clr-accent);
-    border-bottom: 1px solid var(--clr-accent);
-    text-align: center;
-}
-
-.architecture-philosophy h4,
-.skills-container h4 {
-    font-size: 1rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 15px;
-}
-
-.architecture-philosophy p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
 .skills-container {
     text-align: center;
 }
@@ -1087,108 +987,7 @@ body.modal-open .modal-window {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* === ENGINEERING SECTION (Custom) ============================ */
-.engineering-main-container {
-    max-width: 1200px;
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    z-index: 2;
-    position: relative;
-}
-
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 0 0 10px var(--clr-accent-glow), 0 0 20px var(--clr-purple-glow);
-}
-
-.engineering-main-container .section-intro {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin: 0 auto 3rem auto;
-    max-width: 800px;
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.engineering-projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-}
-
-
-/* === ARCHITECTURE SECTION (Custom) ============================ */
-/* New Architectural Title Animation Styles */
-#architect-title-svg {
-    width: 80%;
-    max-width: 900px;
-    font-size: clamp(2.2rem, 5vw, 3rem);
-    font-weight: 600;
-    overflow: visible;
-}
-
-#architect-title-text {
-    font-family: 'Poppins', sans-serif;
-    fill: #fff; /* The text is now solid white from the start */
-    /* This clip-path hides the text by default, collapsing it to a vertical line in the center */
-    clip-path: inset(0 50% 0 50%);
-    filter: drop-shadow(0 0 8px var(--clr-accent-glow)) drop-shadow(0 0 15px var(--clr-purple-glow));
-
-}
-
-/* This class triggers the animation when added by JavaScript */
-#architect-title-svg.animate #architect-title-text {
-    /* The animation will un-clip the text over 2 seconds */
-    animation: reveal-from-middle 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
-
-/* Keyframes for the "meet in the middle" reveal effect */
-@keyframes reveal-from-middle {
-    from {
-        clip-path: inset(0 50% 0 50%);
-    }
-    to {
-        clip-path: inset(0 0 0 0);
-    }
-}
-.architecture-main-container {
-    max-width: 1200px;
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    z-index: 2;
-    position: relative;
-}
-
-.architecture-main-container .section-intro {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin: 0 auto 3rem auto;
-    max-width: 800px;
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.architecture-projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-}
-
-/* === ARCHITECTURE MODAL (7 Steps) ================================ */
-.modal-architecture-summary {
-    font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-align: left;
-    max-width: 90%;
-    margin: 0 0 25px 0;
-    border-left: 3px solid var(--clr-accent);
-    padding-left: 15px;
-}
-
+/* Modal: Architecture 7 Steps */
 .modal-steps-toggle-btn {
     background: rgba(147, 112, 219, 0.1);
     border: 1px solid var(--clr-accent);
@@ -1211,7 +1010,7 @@ body.modal-open .modal-window {
 
 .toggle-arrow {
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    transform: rotate(-90deg); /* Start collapsed */
+    transform: rotate(-90deg);
 }
 
 .architectural-steps-container {
@@ -1219,7 +1018,7 @@ body.modal-open .modal-window {
     gap: 25px;
     overflow: hidden;
     transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1), margin-top 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-in-out;
-    grid-template-rows: 0fr; /* Start collapsed */
+    grid-template-rows: 0fr;
     opacity: 0;
     margin-top: 0;
 }
@@ -1275,13 +1074,13 @@ body.modal-open .modal-window {
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* =================================================================== */
-/* === RESPONSIVE DESIGN ============================================= */
-/* =================================================================== */
+/*
+ * Responsive Design
+ * --------------------------------------------------
+ */
 
 @media (max-width: 900px) {
 
-    /* --- Core Layout & Scrolling Fixes --- */
     html {
         scroll-snap-type: none;
     }
@@ -1292,7 +1091,6 @@ body.modal-open .modal-window {
         overflow-x: hidden;
     }
 
-    /* --- Top Navigation --- */
     #top-nav {
         background: rgba(1, 4, 9, 0.7);
         backdrop-filter: blur(5px);
@@ -1315,79 +1113,82 @@ body.modal-open .modal-window {
         font-size: 0.85rem;
     }
 
-    /* --- Hero Section (Homepage) --- */
-    #hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    #hero .hero-grid {
+        grid-template-columns: 1fr;
         text-align: center;
-        min-height: 95vh;
     }
 
-    .hero-content {
-        max-width: 95%;
+    #hero .hero-text-content {
+        order: 2;
+        text-align: center;
+    }
+
+    #hero .hero-visual-content {
         order: 1;
+        margin-bottom: 2rem;
     }
 
-    .hero-content h1 {
+    #hero .hero-photo {
+        width: 250px;
+        height: 250px;
+    }
+    
+    #hero .hero-socials {
+        justify-content: center;
+    }
+
+    #hero .hero-text-content h1 {
         font-size: clamp(2.8rem, 12vw, 4rem);
         line-height: 1.15;
     }
 
-    .hero-content .subtitle {
+    #hero .hero-text-content .subtitle {
         font-size: 1.2rem;
     }
 
-    .hero-content .mission-statement {
+    #hero .hero-text-content .mission-statement {
         font-size: 0.95rem;
     }
 
-    .hero-socials {
-        justify-content: center;
-        margin-top: 1.5rem;
-    }
-
-
-    /* --- About Me Section --- */
-    .about-container {
+    .about-container,
+    .page-layout-grid {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 30px;
     }
 
-    .about-right {
-        text-align: center; /* Ensure content within this div is also centered */
+    .about-left-col,
+    .page-left-col {
+        text-align: center;
     }
-
-    .about-photo-container {
-        margin: 0 auto 20px; /* Center the profile picture */
-        width: 200px;
-        height: 200px;
+    
+    .about-left-col h1, .about-left-col .about-bio {
+        text-align: center;
     }
-
-    .about-right .about-bio {
-        font-size: 0.95rem;
-    }
-
-    .projects-grid {
-        /* The grid will now correctly wrap into a single column automatically */
+    
+    .about-grid,
+    .projects-grid,
+    .engineering-projects-grid,
+    .architecture-projects-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 
-    /* --- General HUD Panels (Engineering, etc.) --- */
-    .hud-panel h1,
+    .contact-card h1,
     .section-title {
         font-size: 2.2rem;
     }
 
-    .hud-panel p,
+    .contact-card p,
     .section-intro {
         font-size: 1rem;
     }
 
-    /* --- Modal Content --- */
+    .contact-card {
+        padding: 2rem;
+    }
+
     .modal-window {
         padding: 40px 20px;
         width: 95%;
@@ -1405,7 +1206,6 @@ body.modal-open .modal-window {
         width: 100%;
     }
 
-    /* --- Architecture Modal (Responsive) --- */
     .architectural-step .step-content {
         flex-direction: column;
     }
@@ -1414,5 +1214,4 @@ body.modal-open .modal-window {
         width: 100%;
         height: 120px;
     }
-    
 }
