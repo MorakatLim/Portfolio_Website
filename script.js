@@ -205,6 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="architecture-philosophy" style="margin-top: 20px;">
+                         <h4>My Guides & Findings</h4>
+                         <div class="pdf-container">
+                            <iframe src="/Projects/Architecture_Design/Architecture_&_Design.pdf"></iframe>
+                         </div>
+                    </div>
+
                     <div style="text-align: center; margin-top: 40px;">
                         <a href="#architecture" class="hero-cta">Explore My Projects</a>
                     </div>
