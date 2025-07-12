@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="architecture-philosophy" style="margin-top: 20px;">
                          <h4>My Guides & Findings</h4>
                          <div class="pdf-container">
-                            <iframe src="/Projects/Architecture_Design/Architecture_&_Design.pdf"></iframe>
+                            <iframe src="Projects/Architecture_Design/Architecture_&_Design.pdf"></iframe>
                          </div>
                     </div>
 
